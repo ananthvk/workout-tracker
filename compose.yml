@@ -1,0 +1,54 @@
+services:
+  frontend:
+    build: frontend
+    command: yarn run dev
+    ports:
+      - 3001:3001
+    expose:
+      - 3001
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+
+  backend:
+    build: backend
+    command: yarn dev
+    environment:
+      - PORT=3000
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+    volumes:
+      - ./backend:/app
+
+  postgres:
+    image: postgres:16-bookworm
+    expose:
+      - 5432
+    networks:
+      - fitrack-net
+    volumes:
+      - db:/var/lib/postgresql/data
+    restart: always 
+    environment:
+      POSTGRES_PASSWORD: development
+  
+  adminer:
+    image: adminer
+    restart: always
+    networks:
+      - fitrack-net
+    ports:
+      - 8080:8080
+
+networks:
+  fitrack-net:
+    driver: bridge
+
+volumes:
+  db:
+    driver: local
