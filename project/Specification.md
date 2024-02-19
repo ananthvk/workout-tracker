@@ -11,14 +11,17 @@ The primary purpose of this application is to track and derive insights into wor
 
 ## Tech stack
 - Backend: Nodejs (fastify)
-- Fronted: Svelte
+- Fronted: Svelte / React
 - Deployment: Docker
 - Database: PostgreSQL
+
+ER and various diagrams created using [drawio](https://www.drawio.com/).
+[Penpot](https://penpot.app/) will be used to create designs for the frontend.
 
 ## Requirements
 ### Create a new workout tracker page
 Used to create new workouts for tracking.
-This page should have a workout name (input field), types (multiple select), and field type (RepsWeight, Reps, Time, TimeCalories).
+This page should have a workout name (input field), types (multiple select - cardio/strength/etc), and field type (RepsWeight, Reps, Time, TimeCalories).
 
 ### Add workout info page
 This page should enable the user to add details about a workout. Should record date-time added, date-time performed, fields depending on the workout (For example, reps and weights for dumbbell exercises).
