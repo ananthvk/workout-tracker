@@ -2,6 +2,7 @@ FROM node:18-alpine
 WORKDIR /app
 COPY package.json .
 RUN yarn install
-RUN yarn install --dev
+RUN yarn install --production=false --dev
 COPY . .
-CMD [ "yarn", "ts-node", "./src/index.ts" ]
+RUN yarn run tsc
+CMD [ "yarn", "start" ]

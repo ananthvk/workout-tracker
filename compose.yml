@@ -13,9 +13,10 @@ services:
 
   backend:
     build: backend
-    command: yarn dev
+    command: yarn run dev
     environment:
-      - PORT=3000
+      - FASTIFY_PORT=3000
+      - FASTIFY_ADDRESS=0.0.0.0
     expose:
       - 3000
     ports:
