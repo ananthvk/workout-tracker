@@ -9,12 +9,42 @@ create table if not exists usr(
     salt text not null
 );
 
+-- Workout type holds the type of workout,
+-- For example: cardio, anaerobic, strength, flexibility
+create table if not exists workout_type(
+    id bigserial primary key,
+    name text not null
+);
+create index if not exists workout_type_name_index ON workout_type(name);
+
+-- Muscle holds the muscle targetted
+-- Example: full body, lats, biceps, etc
+create table if not exists muscle(
+    id bigserial primary key,
+    name text not null
+);
+create index if not exists muscle_name_index ON muscle(name);
+
 -- Contains information regarding a single workout
 -- Say a pushup, or squat or any other exercise
 create table if not exists workout(
     id bigserial primary key,
     name text not null,
-    description text
+    description text,
+    benefits text,
+    risks text
+);
+
+create table if not exists workout_type_workout_relation(
+    id bigserial primary key,
+    workout_id bigint references workout(id),
+    workout_type_id bigint references workout_type(id)
+);
+
+create table if not exists muscle_workout_relation(
+    id bigserial primary key,
+    workout_id bigint references workout(id),
+    muscle_id bigint references muscle(id)
 );
 
 -- Type of field, Rep&Weight, Rep&Time, Time&Calories, etc
