@@ -30,6 +30,8 @@ services:
     image: postgres:16-bookworm
     expose:
       - 5432
+    ports:
+      - 5432:5432
     networks:
       - fitrack-net
     volumes:

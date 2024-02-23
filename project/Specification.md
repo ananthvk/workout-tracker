@@ -60,6 +60,7 @@ Login page, logout page, and sign-up pages
 - Google Analytics
 
 ## Task list
+- [x] Create a skeleton hello world project and check its working
 - [ ] Create the database models
 - [ ] Create various workout trackers(Reps and weights) using DB tools.
 - [ ] Create the add workout info page (tracking page), should work with a default user
