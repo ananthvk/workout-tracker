@@ -13,7 +13,7 @@ create table if not exists usr(
 -- For example: cardio, anaerobic, strength, flexibility
 create table if not exists workout_type(
     id bigserial primary key,
-    name text not null
+    name text not null unique
 );
 create index if not exists workout_type_name_index ON workout_type(name);
 
@@ -21,7 +21,7 @@ create index if not exists workout_type_name_index ON workout_type(name);
 -- Example: full body, lats, biceps, etc
 create table if not exists muscle(
     id bigserial primary key,
-    name text not null
+    name text not null unique
 );
 create index if not exists muscle_name_index ON muscle(name);
 
@@ -50,7 +50,7 @@ create table if not exists muscle_workout_relation(
 -- Type of field, Rep&Weight, Rep&Time, Time&Calories, etc
 create table if not exists field_type(
     id bigserial primary key,
-    name text not null
+    name text not null unique
 );
 
 create index if not exists field_type_name_index ON field_type(name);
