@@ -65,5 +65,3 @@ networks:
 volumes:
   db:
     driver: local
-  db2:
-    driver: local
