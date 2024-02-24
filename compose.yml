@@ -17,7 +17,12 @@ services:
     build: backend
     command: yarn run dev
     environment:
-      - CONNECTION_STRING=postgres://postgres:development@postgres:5432/wtracker
+      - DB_USERNAME=postgres 
+      - DB_PASSWORD=development
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=wtracker
+      - DB_DEFAULT=postgres
       - FASTIFY_PORT=3000
       - FASTIFY_ADDRESS=0.0.0.0
     expose:
@@ -40,7 +45,7 @@ services:
     networks:
       - fitrack-net
     volumes:
-      - db:/var/lib/postgresql/data
+      - db2:/var/lib/postgresql/data
     restart: always 
     environment:
       POSTGRES_PASSWORD: development
@@ -59,4 +64,6 @@ networks:
 
 volumes:
   db:
+    driver: local
+  db2:
     driver: local
