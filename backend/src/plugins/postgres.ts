@@ -9,12 +9,7 @@ export default fp(
             process.exit(1)
         }
         fastify.register(pg, {
-            // connectionString: "postgres://postgres:development@postgres:5432/wtracker", // process.env.CONNECTION_STRING
-            user: 'postgres',
-            password: 'development',
-            port: 5432,
-            database: 'wtracker',
-            host: '172.21.0.2'
+            connectionString: process.env.CONNECTION_STRING
         })
     }
 )
