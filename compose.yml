@@ -10,11 +10,14 @@ services:
       - backend
     volumes:
       - ./frontend:/app
+    networks:
+      - fitrack-net
 
   backend:
     build: backend
     command: yarn run dev
     environment:
+      - CONNECTION_STRING="postgres://postgres:development@postgres:5432/wtracker";
       - FASTIFY_PORT=3000
       - FASTIFY_ADDRESS=0.0.0.0
     expose:
@@ -25,6 +28,8 @@ services:
       - postgres
     volumes:
       - ./backend:/app
+    networks:
+      - fitrack-net
 
   postgres:
     image: postgres:16-bookworm
