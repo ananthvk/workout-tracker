@@ -62,7 +62,7 @@ Login page, logout page, and sign-up pages
 ## Task list
 - [x] Create a skeleton hello world project and check its working
 - [x] Create the database models
-- [ ] Create various workout trackers(Reps and weights) using DB tools.
+- [x] Create various workout trackers(Reps and weights) using DB tools.
 - [ ] Create the add workout info page (tracking page), should work with a default user
 - [ ] Create a page to view history about a single workout
 - [ ] Create user login/logout pages (add signup later)
