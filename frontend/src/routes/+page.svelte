@@ -4,15 +4,14 @@
 
 <h1>Catalog</h1>
 {#await fetchWorkouts()}
-    <div>
-        Loading...
-    </div>
-{:then data} 
+    <div>Loading...</div>
+{:then data}
     <div>
         {#each $workoutList as workout}
-            <p>
-                {workout.name}
-            </p>
+            <div>
+                <a href="workout/{workout.id}">{workout.name}</a>
+            </div>
         {/each}
     </div>
+    <a href="/about">About</a>
 {/await}
