@@ -1,22 +1,18 @@
 <script lang="ts">
-    const fetchWorkouts = (async () => {
-        const response = await fetch("http://localhost:3000/api/v1/workouts");
-        const data = await response.json();
-        return data;
-    })();
+    import { workoutList, fetchWorkouts } from "$lib/stores";
 </script>
 
-<h1>
-    Workout tracker
-    {#await fetchWorkouts}
-        <h2>Loading....</h2>
-    {:then data}
-        {#each data as { id, name }}
-            <div>
-                <a href={id}>
-                    {name}
-                </a>
-            </div>
+<h1>Catalog</h1>
+{#await fetchWorkouts()}
+    <div>
+        Loading...
+    </div>
+{:then data} 
+    <div>
+        {#each $workoutList as workout}
+            <p>
+                {workout.name}
+            </p>
         {/each}
-    {/await}
-</h1>
+    </div>
+{/await}
