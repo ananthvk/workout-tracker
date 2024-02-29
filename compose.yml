@@ -25,6 +25,9 @@ services:
       - DB_DEFAULT=postgres
       - FASTIFY_PORT=3000
       - FASTIFY_ADDRESS=0.0.0.0
+      - JWT_SECRET=development
+      - SALT_ROUNDS=10
+      - SEED_DB=1
     expose:
       - 3000
     ports:

@@ -5,8 +5,7 @@ create table if not exists usr(
     id bigserial primary key,
     name text not null,
     email text not null unique,
-    password text not null,
-    salt text not null
+    password text not null
 );
 
 -- Workout type holds the type of workout,

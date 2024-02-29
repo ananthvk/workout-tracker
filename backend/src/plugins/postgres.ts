@@ -52,9 +52,32 @@ export default fp(
         const initialSQL = fs.readFileSync('src/models/create_tables.sql', { encoding: 'utf-8', flag: 'r' })
         try {
             await fastify.pg.query(initialSQL);
+            await fastify.pg.query('CREATE TABLE IF NOT EXISTS seed_status(id serial);')
         } catch (err) {
             fastify.log.error(err)
             process.exit(1)
+        }
+
+        // Seed the database if SEED_DB is set to 1
+        if ("SEED_DB" in process.env && process.env.SEED_DB === "1") {
+            fastify.log.info('Seeding the database....')
+            const seedSQL = fs.readFileSync('src/models/seed.sql', { encoding: 'utf-8', flag: 'r' })
+            try {
+                const { rowCount } = await fastify.pg.query('SELECT id FROM seed_status;');
+                if (rowCount != 0) {
+                    fastify.log.info('Database already seeded....skipping')
+                }
+                else {
+                    await fastify.pg.query(seedSQL);
+                    // TODO: Create a transaction here
+                    await fastify.pg.query('INSERT INTO seed_status VALUES (1);')
+                    fastify.log.info('Database seeded successfully...')
+                }
+            } catch (err) {
+                fastify.log.error('Could not seed the database')
+                fastify.log.error(err)
+                process.exit(1)
+            }
         }
     }
 )

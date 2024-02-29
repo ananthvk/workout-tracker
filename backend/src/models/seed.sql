@@ -1,9 +1,12 @@
 -- Populate the database with some initial data
 
 -- Firstly, we shall create three users for the database
-insert into usr(name, email, password, salt) values ('Foo', 'foo@example.com', 'password', 'dev');
-insert into usr(name, email, password, salt) values ('Bar', 'bar@example.com', 'password2', 'dev');
-insert into usr(name, email, password, salt) values ('Bob', 'bob@bob.com', 'password3', 'dev');
+insert into usr(name, email, password) values ('Foo', 'foo@example.com', '$2a$10$ZAeyW9f772xGFTaVqmuce.ZeP0pBMdTr0YZ4XySuZBCProjPQlcea'); -- Password: pass1
+insert into usr(name, email, password) values ('Bar', 'bar@example.com', '$2a$10$1iFr.IWYfHouUaOWGVM6LuLmU4fZNxmhDQ8bk8/qWsb0eV1a24Tfa'); -- Password: pass2
+insert into usr(name, email, password) values ('Bob', 'bob@bob.com', '$2a$10$VFG4koT.jdLeylxyWnsCuu0h69Jz4oOekZxpC.7ijOSuYh5Q2aUJi'); -- Password: pass3
+-- 10 rounds
+
+
 
 -- Create a few workout_type s
 insert into workout_type(name) values('cardio');
