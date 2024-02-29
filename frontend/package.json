@@ -21,7 +21,10 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@fortawesome/free-solid-svg-icons": "^6.5.1",
+		"@sindresorhus/slugify": "^2.2.1",
 		"@sveltejs/adapter-node": "^4.0.1",
-		"@sveltejs/adapter-static": "^3.0.1"
+		"@sveltejs/adapter-static": "^3.0.1",
+		"svelte-fa": "^4.0.2"
 	}
 }

@@ -7,11 +7,12 @@ interface Workout {
 
 export let workoutList: Writable<Array<Workout>> = writable();
 
-const fetchWorkouts = async () => {
+// fetchWorkouts contains the promise of the executed fetch
+const fetchWorkouts = (async () => {
     const response = await fetch(`${PUBLIC_API_BASE_URL}/workouts`);
     const data = await response.json();
     workoutList.set(data)
     return true;
-}
+})();
 
 export { fetchWorkouts };
