@@ -41,7 +41,7 @@ const routes: FastifyPluginAsync = async (fastify: FastifyInstance, opts): Promi
         const password: string = request.body.password;
         const user = await validateEmailPassword(fastify, email, password);
         if (user === null) {
-            reply.unauthorized('Invalid credentials')
+            return reply.unauthorized('Invalid credentials')
         }
         else {
             const token = fastify.jwt.sign({ 'uid': user.id })
@@ -50,6 +50,11 @@ const routes: FastifyPluginAsync = async (fastify: FastifyInstance, opts): Promi
                 token
             }
         }
+    })
+
+    fastify.get('/verify', async (request, reply) => {
+        const token = request.headers.authorization?.split(' ')[1]
+        return { 'verified': fastify.jwt.verify(token!) }
     })
 }
 export default routes;
