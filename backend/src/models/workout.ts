@@ -12,7 +12,7 @@ interface Workout {
 };
 
 const getAllWorkouts = async (fastify: FastifyInstance): Promise<WorkoutName[]> => {
-    const { rows } = await fastify.pg.query(
+    const { rows} = await fastify.pg.query(
         'SELECT id, name FROM workout;'
     )
     return rows;
