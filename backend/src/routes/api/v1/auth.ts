@@ -1,6 +1,5 @@
 import { FastifyInstance, FastifyPluginAsync, RouteShorthandOptions } from "fastify";
 import { validateEmailPassword } from "../../../models/usr.js";
-
 const routes: FastifyPluginAsync = async (fastify: FastifyInstance, opts): Promise<void> => {
     // Returns a token if the authentication succeeded
     // https://fastify.dev/docs/latest/Reference/Validation-and-Serialization/ 
@@ -18,9 +17,6 @@ const routes: FastifyPluginAsync = async (fastify: FastifyInstance, opts): Promi
                 200: {
                     type: 'object',
                     properties: {
-                        // token: { type: 'string' }
-                        name: { type: 'string' },
-                        email: { type: 'string' },
                         token: { type: 'string' },
                     }
                 },
@@ -44,17 +40,10 @@ const routes: FastifyPluginAsync = async (fastify: FastifyInstance, opts): Promi
             return reply.unauthorized('Invalid credentials')
         }
         else {
-            const token = fastify.jwt.sign({ 'uid': user.id })
-            return {
-                ...user,
-                token
-            }
+            // Expire the token in one month
+            const token = await reply.jwtSign({ 'uid': user.id, 'eat': Math.round((Date.now() / 1000) + 30 * 24 * 60 * 60) })
+            return { token }
         }
-    })
-
-    fastify.get('/verify', async (request, reply) => {
-        const token = request.headers.authorization?.split(' ')[1]
-        return { 'verified': fastify.jwt.verify(token!) }
     })
 }
 export default routes;
