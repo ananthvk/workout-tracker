@@ -1,7 +1,6 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
     import { PUBLIC_API_BASE_URL } from "$env/static/public";
-    import { fade } from "svelte/transition";
     import { onMount } from "svelte";
     $: message = "";
     let email = "";
@@ -75,22 +74,20 @@
     }
 </script>
 
-<div
-    class="h-screen flex flex-wrap flex-col justify-center items-center w-screen"
->
+<div class="h-screen flex flex-wrap flex-col justify-center items-center w-screen">
     <form
         method="post"
         on:submit|preventDefault={submitLogin}
-        class="md:px-3 md:py-36 border shadow-sm hover:shadow-md duration-700 rounded-lg md:w-6/12"
+        class="p-5 md:px-3 md:py-36 border shadow-sm hover:shadow-md duration-700 rounded-lg md:w-6/12 lg:w-4/12 w-10/12"
     >
-        <div class="flex flex-col justify-between items-center">
-            <h1 class="text-4xl">Login</h1>
+        <div class="flex flex-col justify-between md:items-center">
+            <h1 class="self-center text-4xl">Login</h1>
             <input
                 bind:value={email}
                 on:input={(e) => {
                     message = "";
                 }}
-                class="bg-gray-50 border border-gray-200 text-gray-800 text-md font-medium rounded-lg p-3 w-8/12 mt-5"
+                class="duration-700 outline-none focus:border focus:border-blue-400 bg-gray-50 border border-gray-200 text-gray-800 text-md font-medium rounded-lg p-3 md:w-8/12 mt-5"
                 type="email"
                 placeholder="Email"
                 name="email"
@@ -102,15 +99,15 @@
                 }}
                 required
                 type="password"
-                class="bg-gray-50 border border-gray-200 text-gray-800 text-md font-medium rounded-lg p-3 w-8/12 mt-5"
+                class="duration-700 focus:border focus:border-blue-400 outline-none bg-gray-50 border border-gray-200 text-gray-800 text-md font-medium rounded-lg p-3 md:w-8/12 mt-5"
                 placeholder="Password"
                 name="password"
             />
-            <div class="w-8/12 flex flex-col justify-center items-end">
+            <div class="md:w-8/12 flex flex-col justify-center items-end">
                 <input
                     required
                     type="submit"
-                    class="text-sm bg-blue-300 hover:bg-blue-500 hover:text-gray-100 duration-700 border border-gray-200 text-gray-800 text-md font-medium rounded-lg p-2 mt-5 self-end"
+                    class="text-sm bg-blue-700 text-gray-100 hover:bg-blue-800 hover:text-gray-50 duration-700 border border-gray-200  text-md font-medium rounded-lg p-2 mt-5 self-end"
                 />
             </div>
             {message}
