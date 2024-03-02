@@ -5,6 +5,7 @@
     $: message = "";
     let email = "";
     let password = "";
+    let page:any = null;
 
     onMount(() => {
         // The below code is to check if the user is already logged in
@@ -31,6 +32,7 @@
                     console.log(err);
                 });
         }
+
     });
 
     const login = async () => {
@@ -74,13 +76,16 @@
     }
 </script>
 
-<div class="h-screen flex flex-wrap flex-col justify-center items-center w-screen">
+<div
+    bind:this={page}
+    class="h-screen flex flex-wrap flex-col justify-center items-center w-screen bg-gradient-to-r from-cyan-300 to-blue-800"
+>
     <form
         method="post"
         on:submit|preventDefault={submitLogin}
-        class="p-5 md:px-3 md:py-36 border shadow-sm hover:shadow-md duration-700 rounded-lg md:w-6/12 lg:w-4/12 w-10/12"
+        class="p-5 border shadow-sm hover:shadow-md duration-700 rounded-lg md:w-6/12 lg:w-4/12 w-10/12 bg-white"
     >
-        <div class="flex flex-col justify-between md:items-center">
+        <div class="flex flex-col justify-between md:items-center h-max min-h-max md:py-36">
             <h1 class="self-center text-4xl">Login</h1>
             <input
                 bind:value={email}
@@ -107,7 +112,7 @@
                 <input
                     required
                     type="submit"
-                    class="text-sm bg-blue-700 text-gray-100 hover:bg-blue-800 hover:text-gray-50 duration-700 border border-gray-200  text-md font-medium rounded-lg p-2 mt-5 self-end"
+                    class="text-sm bg-blue-700 text-gray-100 hover:bg-blue-800 active:bg-blue-800 focus:bg-blue-800 hover:text-gray-50 duration-700 border border-gray-200 text-md font-medium rounded-lg p-2 mt-5 self-end"
                 />
             </div>
             {message}
