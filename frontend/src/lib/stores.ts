@@ -15,4 +15,9 @@ const fetchWorkouts = (async () => {
     return true;
 })();
 
+export let name: Writable<string> = writable("");
+export let email: Writable<string> = writable("");
+export let usr_id: Writable<number|null> = writable();
+export let logged_in: Writable<boolean> = writable(false);
+
 export { fetchWorkouts };

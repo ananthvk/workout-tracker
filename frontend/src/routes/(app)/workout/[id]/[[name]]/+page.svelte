@@ -1,6 +1,6 @@
 <script lang="ts">
     import { page } from "$app/stores";
-    import { fetchWorkout } from "$lib/fetch";
+    import { fetchWorkout } from "./workout";
     import Workout from "./Workout.svelte";
 </script>
 

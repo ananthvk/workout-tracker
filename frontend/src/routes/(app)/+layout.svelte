@@ -5,7 +5,7 @@
 </script>
 
 
-<div class="flex md:flex-row md:w-screen">
+<div class="flex md:flex-row md:w-screen flex-grow">
     <div class="md:w-3/12 md:bg-slate-500 md:h-screen">
         <button on:click={() => history.back()}>
             <Fa icon={faArrowLeft} size="lg" />

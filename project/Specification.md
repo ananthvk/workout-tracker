@@ -65,7 +65,7 @@ Login page, logout page, and sign-up pages
 - [x] Create various workout trackers(Reps and weights) using DB tools.
 - [ ] Create the add workout info page (tracking page), should work with a default user
 - [ ] Create a page to view history about a single workout
-- [ ] Create user login/logout pages (add signup later)
+- [x] Create user login/logout pages (add signup later)
 - [ ] Complete the add new workout page (admin only)
-- [ ] Finish the workout catalog page(list all workouts in the app)
+- [x] Finish the workout catalog page(list all workouts in the app)
 TODO

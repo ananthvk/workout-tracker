@@ -6,7 +6,7 @@
 {#await fetchWorkouts}
     <div>Loading...</div>
 {:then data}
-    <div class="flex flex-col">
+    <div class="flex flex-col flex-grow">
         {#each $workoutList as workout}
             <a class="" href="workout/{workout.id}/{slugify(workout.name)}"
                 >{workout.name}</a
