@@ -75,67 +75,48 @@
     }
 </script>
 
-<div class="page" transition:fade>
-    <a href="/">Home</a>
-    <h1>Login</h1>
-    <form method="post" on:submit|preventDefault={submitLogin}>
-        <div>
+<div
+    class="h-screen flex flex-wrap flex-col justify-center items-center w-screen"
+>
+    <form
+        method="post"
+        on:submit|preventDefault={submitLogin}
+        class="md:px-3 md:py-36 border shadow-sm hover:shadow-md duration-700 rounded-lg md:w-6/12"
+    >
+        <div class="flex flex-col justify-between items-center">
+            <h1 class="text-4xl">Login</h1>
             <input
                 bind:value={email}
                 on:input={(e) => {
                     message = "";
                 }}
-                class="inp"
+                class="bg-gray-50 border border-gray-200 text-gray-800 text-md font-medium rounded-lg p-3 w-8/12 mt-5"
                 type="email"
                 placeholder="Email"
                 name="email"
             />
-        </div>
-        <div>
             <input
                 bind:value={password}
                 on:input={(e) => {
                     message = "";
                 }}
-                class="inp"
+                required
                 type="password"
+                class="bg-gray-50 border border-gray-200 text-gray-800 text-md font-medium rounded-lg p-3 w-8/12 mt-5"
                 placeholder="Password"
                 name="password"
             />
-        </div>
-        <div>
-            <input type="submit" />
-        </div>
-        <p class="err">
+            <div class="w-8/12 flex flex-col justify-center items-end">
+                <input
+                    required
+                    type="submit"
+                    class="text-sm bg-blue-300 hover:bg-blue-500 hover:text-gray-100 duration-700 border border-gray-200 text-gray-800 text-md font-medium rounded-lg p-2 mt-5 self-end"
+                />
+            </div>
             {message}
-        </p>
+        </div>
     </form>
 </div>
 
 <style>
-    .inp {
-        -webkit-appearance: none;
-        appearance: none;
-        margin-top: 1.8em;
-        padding: 0.5em;
-        outline: none;
-        border: 0px;
-        border-bottom: 1px solid rgb(206, 206, 254);
-        transition: border 700ms ease-out;
-    }
-    .inp:active,
-    .inp:focus,
-    .inp:hover {
-        border-bottom: 1px solid black;
-    }
-    .page {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-content: center;
-        align-items: center;
-    }
-    .err {
-        color: red;
-    }
 </style>

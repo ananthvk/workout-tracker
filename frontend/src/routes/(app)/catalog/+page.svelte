@@ -1,17 +1,16 @@
 <script lang="ts">
     import { workoutList, fetchWorkouts } from "$lib/stores";
-    import {slugify} from "$lib/index";
+    import { slugify } from "$lib/index";
 </script>
 
-<h1>Catalog</h1>
 {#await fetchWorkouts}
     <div>Loading...</div>
 {:then data}
-    <div>
+    <div class="flex flex-col">
         {#each $workoutList as workout}
-            <div>
-                <a href="workout/{workout.id}/{slugify(workout.name)}">{workout.name}</a>
-            </div>
+            <a class="" href="workout/{workout.id}/{slugify(workout.name)}"
+                >{workout.name}</a
+            >
         {/each}
     </div>
 {/await}
