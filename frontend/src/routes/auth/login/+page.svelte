@@ -2,12 +2,37 @@
     import { goto } from "$app/navigation";
     import { PUBLIC_API_BASE_URL } from "$env/static/public";
     import { fade } from "svelte/transition";
+    import { onMount } from "svelte";
+    $: message = "";
     let email = "";
     let password = "";
 
-    if (localStorage.getItem("token") !== null) {
-        goto('/');
-    }
+    onMount(() => {
+        // The below code is to check if the user is already logged in
+        // If the user is already logged in (i.e. has a valid token), then redirect the user to the homepage
+
+        const token = localStorage.getItem("token");
+        if (token !== null && token !== undefined) {
+            fetch(`${PUBLIC_API_BASE_URL}/verify`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                method: "GET",
+            })
+                .then((response) => {
+                    if (response.body) {
+                        response.json().then((body) => {
+                            if (body.verified) {
+                                goto("/");
+                            }
+                        });
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    });
 
     const login = async () => {
         const response = await fetch(`${PUBLIC_API_BASE_URL}/token`, {
@@ -17,19 +42,31 @@
             method: "POST",
             body: JSON.stringify({ email, password }),
         });
-        const data = await response.json();
-        localStorage.setItem("token", data.token);
-        return data;
+        try {
+            const data = await response.json();
+            if (response.status != 200 || !("token" in data)) {
+                message = data.message || "Invalid username/password";
+                return false;
+            }
+            if (data !== null && data !== undefined) {
+                localStorage.setItem("token", data.token);
+                // TODO: Redirect to next
+                return true;
+            }
+            return true;
+        } catch (err) {
+            console.log(err);
+            throw err;
+        }
     };
 
     function submitLogin(e: SubmitEvent) {
         e.preventDefault();
         login()
             .then((data) => {
-                // window.history.replaceState(history.state, "", "/");
-                // pushState('', '/')
-                // redirect(302, '/');
-                goto('/');
+                if (data) {
+                    goto("/");
+                }
             })
             .catch((err) => {
                 console.log(err);
@@ -39,11 +76,15 @@
 </script>
 
 <div class="page" transition:fade>
+    <a href="/">Home</a>
     <h1>Login</h1>
     <form method="post" on:submit|preventDefault={submitLogin}>
         <div>
             <input
                 bind:value={email}
+                on:input={(e) => {
+                    message = "";
+                }}
                 class="inp"
                 type="email"
                 placeholder="Email"
@@ -53,6 +94,9 @@
         <div>
             <input
                 bind:value={password}
+                on:input={(e) => {
+                    message = "";
+                }}
                 class="inp"
                 type="password"
                 placeholder="Password"
@@ -62,6 +106,9 @@
         <div>
             <input type="submit" />
         </div>
+        <p class="err">
+            {message}
+        </p>
     </form>
 </div>
 
@@ -87,5 +134,8 @@
         justify-content: center;
         align-content: center;
         align-items: center;
+    }
+    .err {
+        color: red;
     }
 </style>
