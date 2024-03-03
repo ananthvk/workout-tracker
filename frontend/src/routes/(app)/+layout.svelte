@@ -1,18 +1,10 @@
-<script>
-    import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-    import Fa from "svelte-fa";
-    // TOOD: Fix bug when window is horizontally resized
+<script lang="ts">
+    import Catalog from "$lib/Catalog.svelte";
 </script>
 
-
-<div class="flex md:flex-row md:w-screen flex-grow">
-    <div class="md:w-3/12 md:bg-slate-500 md:h-screen">
-        <button on:click={() => history.back()}>
-            <Fa icon={faArrowLeft} size="lg" />
-        </button>
-        Sidebar here
+<div class="flex-grow md:flex md:flex-row flex flex-col dark:from-gray-800 dark:to-slate-800 bg-gradient-to-r from-blue-300 to-cyan-500">
+    <div class="invisible md:visible bg-white md:w-2/12 dark:bg-gradient-to-b dark:from-slate-800 dark:to-gray-800 dark:text-slate-50 dark:border-r dark:border-gray-700">
+        <Catalog />
     </div>
-    <div class="w-max flex-grow">
-        <slot />
-    </div>
+    <slot />
 </div>

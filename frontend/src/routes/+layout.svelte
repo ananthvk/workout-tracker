@@ -4,6 +4,6 @@
 </script>
 
 <div class="min-h-screen flex flex-col">
-    <Navbar/>
+    <Navbar />
     <slot />
 </div>

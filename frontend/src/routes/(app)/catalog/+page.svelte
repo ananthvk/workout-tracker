@@ -1,16 +1,11 @@
-<script lang="ts">
-    import { workoutList, fetchWorkouts } from "$lib/stores";
-    import { slugify } from "$lib/index";
+<script>
+    import Catalog from "$lib/Catalog.svelte";
 </script>
 
-{#await fetchWorkouts}
-    <div>Loading...</div>
-{:then data}
-    <div class="flex flex-col flex-grow">
-        {#each $workoutList as workout}
-            <a class="" href="workout/{workout.id}/{slugify(workout.name)}"
-                >{workout.name}</a
-            >
-        {/each}
+<div
+    class="visible md:invisible flex-grow bg-gradient-to-r dark:from-slate-800 dark:to-gray-800 from-blue-300 to-cyan-500"
+>
+    <div class="visible md:invisible">
+        <Catalog />
     </div>
-{/await}
+</div>
