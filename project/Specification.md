@@ -11,9 +11,10 @@ The primary purpose of this application is to track and derive insights into wor
 
 ## Tech stack
 - Backend: Nodejs (fastify)
-- Fronted: Svelte / React
+- Fronted: Svelte
 - Deployment: Docker
 - Database: PostgreSQL
+- CSS: TailwindCSS
 
 ER and various diagrams created using [drawio](https://www.drawio.com/).
 [Penpot](https://penpot.app/) will be used to create designs for the frontend.
@@ -26,10 +27,10 @@ This page should have a workout name (input field), types (multiple select - car
 ### Add workout info page
 This page should enable the user to add details about a workout. Should record date-time added, date-time performed, fields depending on the workout (For example, reps and weights for dumbbell exercises).
 
-### Workout catalog page
+### Workout catalog page [DONE]
 This page should show a list of exercises categorized into various sections, such as cardio/strength or upper body/lower body. There should be an option to search and filter exercises.
 
-### Workout details page
+### Workout details page [DONE]
 This page should provide detailed information about a workout. Description of the workout, recommended reps, weights, and time are displayed. Additional information, such as age and health restrictions, are also shown. There should also be links to YouTube videos / GIFs to perform the workout.
 
 There should also be an option to add the workout to the user's list of workouts.

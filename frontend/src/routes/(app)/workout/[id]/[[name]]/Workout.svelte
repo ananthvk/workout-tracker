@@ -20,15 +20,15 @@
         {description}
     </p>
     <div>
-    <div class="flex flex-col flex-wrap justify-center items-start md:flex-row md:justify-between md:items-center">
-        <div role="group" class="inline-flex rounded-lg shadow-sm">
+    <div class="flex flex-col">
+        <div role="group" class="inline-flex rounded-lg shadow-sm flex-wrap">
             {#each muscles as muscle}
                 <a class="text-gray-800  hover:bg-gray-200 duration-700 px-4 py-2 font-medium text-s border bg-gray-50 border-gray-200 hover:text-gray-950 dark:bg-cyan-800 dark:text-gray-50 dark:border-cyan-700 dark:hover:bg-cyan-900 dark:hover:text-gray-100" href="/muscle/{muscle.id}/{slugify(muscle.name)}">
                     {muscle.name}
                 </a>
             {/each}
         </div>
-        <div role="group" class="inline-flex mt-5 md:mt-0 rounded-lg shadow-sm">
+        <div role="group" class="inline-flex mt-5 rounded-lg shadow-sm flex-wrap">
             {#each type as typ}
                 <a class="text-gray-800 bg-gray-50 hover:bg-gray-200 duration-700 px-4 py-2 font-medium text-s border border-gray-200 hover:text-gray-950 dark:bg-cyan-800 dark:text-gray-50 dark:border-cyan-700 dark:hover:bg-cyan-900 dark:hover:text-gray-100" href="/type/{typ.id}/{slugify(typ.name)}">
                     {typ.name}

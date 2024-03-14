@@ -4,7 +4,9 @@
     import Workout from "./Workout.svelte";
 </script>
 
-<div class="flex-grow flex items-start md:items-center justify-center flex-wrap bg-gradient-to-r dark:from-slate-800 dark:to-gray-800 from-blue-300 to-cyan-500" >
+<div
+    class="flex-grow flex-col flex items-start md:items-center justify-center flex-wrap bg-gradient-to-r dark:from-slate-800 dark:to-gray-800 from-blue-300 to-cyan-500"
+>
     {#if $page.params.id !== undefined}
         {#await fetchWorkout($page.params.id)}
             Loading...

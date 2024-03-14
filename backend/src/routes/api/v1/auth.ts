@@ -24,8 +24,6 @@ const routes: FastifyPluginAsync = async (fastify: FastifyInstance, opts): Promi
                 {
                     type: 'object',
                     properties: {
-                        statusCode: { type: 'number' },
-                        error: { type: 'string' },
                         message: { type: 'string' }
                     }
                 }
