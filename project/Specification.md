@@ -64,9 +64,11 @@ Login page, logout page, and sign-up pages
 - [x] Create a skeleton hello world project and check its working
 - [x] Create the database models
 - [x] Create various workout trackers(Reps and weights) using DB tools.
-- [ ] Create the add workout info page (tracking page), should work with a default user
-- [ ] Create a page to view history about a single workout
 - [x] Create user login/logout pages (add signup later)
-- [ ] Complete the add new workout page (admin only)
 - [x] Finish the workout catalog page(list all workouts in the app)
+- [ ] Implement track feature, which tracks a workout and adds it to "My workouts"
+- [ ] Create a page to view all workouts a user is tracking ("My workouts")
+- [ ] Create a page to add details about a single workout
+- [ ] Create a page to view history about a single workout
+- [ ] Complete the add new workout page (admin only)
 TODO
