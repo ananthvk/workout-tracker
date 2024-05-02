@@ -1,10 +1,10 @@
 # Requirements
-## View information about a specific workout
-This page should show all information about a single workout. It should display the workout description, target muscles and also the type of workout. It should also contain equipment required, risks and benefits.
-## List all workouts
-This page should list the popular workouts. Implement pagination to show only the top workouts. Implement a feature to search for workouts based on name, equipment, muscle, and type.
+## View information about a specific exercise
+This page should show all information about a single exercise. It should display the exercise description, target muscles and also the type of exercise. It should also contain equipment required, risks and benefits.
+## List all exercise
+This page should list the popular exercises. Implement pagination to show only the top exercises. Implement a feature to search for exercises based on name, equipment, muscle, and type.
 ## Log a workout
-This page should allow the user to log a single workout. The user should select a workout, then enter details about the workout such as number of reps, time, and calories for each set.
+This page should allow the user to log a single workout. The user should select an exercise, enter details about the exercise such as number of reps, time, and calories for each set. A single workout session can contain multiple exercies with each exercise having multiple sets.
 ## Dashboard
 This page should show the last workout performed. It should show some statistics such as total time performed, number of days worked out, etc.
 ## Login, logout, sign up
