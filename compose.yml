@@ -1,0 +1,16 @@
+services:
+  backend:
+    build: backend
+    command: pnpm dev
+    ports:
+      - 127.0.0.1:3000:3000
+    expose:
+      - 3000
+    volumes:
+      - ./backend:/app
+    networks:
+      - workout-tracker-net
+
+networks:
+  workout-tracker-net:
+    driver: bridge
