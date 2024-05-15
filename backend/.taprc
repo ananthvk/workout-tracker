@@ -1,0 +1,6 @@
+# tap config file
+# color: false
+comments: true
+
+files:
+  - 'test/**/*.test.ts'

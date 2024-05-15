@@ -1,5 +1,7 @@
 import fp from 'fastify-plugin'
 
+/* c8 ignore start */
+
 export interface SupportPluginOptions {
   // Specify Support plugin options here
 }
@@ -18,3 +20,5 @@ declare module 'fastify' {
     someSupport(): string;
   }
 }
+
+/* c8 ignore stop */
