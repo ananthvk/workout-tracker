@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "pnpm run build:ts && tsc -p test/tsconfig.json && FASTIFY_AUTOLOAD_TYPESCRIPT=1 node --test --experimental-test-coverage --loader ts-node/esm test/**/*.ts",
+    "test": "FASTIFY_AUTOLOAD_TYPESCRIPT=1 tap run --reporter=terse --node-arg=\"--no-warnings\"",
     "start": "pnpm run build:ts && fastify start -o -l info dist/app.js",
     "build:ts": "tsc",
     "watch:ts": "tsc -w",
@@ -32,6 +32,7 @@
     "c8": "^9.0.0",
     "concurrently": "^8.2.2",
     "fastify-tsconfig": "^2.0.0",
+    "tap": "^18.8.0",
     "ts-node": "^10.4.0",
     "typescript": "^5.2.2"
   },

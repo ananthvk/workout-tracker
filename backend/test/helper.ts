@@ -1,11 +1,11 @@
 // This file contains code that we reuse between our tests.
 import helper from 'fastify-cli/helper.js'
-import * as test from 'node:test'
+import tap from 'tap'
 import * as path from 'path'
 import { fileURLToPath } from 'url'
 
 export type TestContext = {
-  after: typeof test.after
+  after: typeof tap.after
 };
 
 const __filename = fileURLToPath(import.meta.url)
