@@ -4,6 +4,8 @@ services:
     command: pnpm dev
     environment:
       - CONNECTION_STRING=postgresql://postgres:dev@db:5432/postgres
+      - DB_CONNECTION_STRING=postgresql://postgres:dev@db:5432/wdb
+      - DBNAME=wdb
     ports:
       - 127.0.0.1:3000:3000
     expose:
@@ -24,6 +26,19 @@ services:
     restart: always
     environment:
       - POSTGRES_PASSWORD=dev
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - "8080:80"
+    networks:
+      - workout-tracker-net
+    volumes:
+      - pgadmin_volume:/var/lib/pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@localhost.com
+      - PGADMIN_DEFAULT_PASSWORD=dev
 
 
 networks:
@@ -32,4 +47,6 @@ networks:
 
 volumes:
   db_volume:
+    driver: local
+  pgadmin_volume:
     driver: local
