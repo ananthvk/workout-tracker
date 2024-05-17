@@ -28,27 +28,20 @@ export default fp(async (fastify) => {
     })
 
     // Try creating the database for this app if it does not exist
-    try {
-        // Run a query on pg_database to check if database with DBNAME exists
-        const query = `SELECT FROM pg_database WHERE datname = '${process.env.DBNAME}';`
-        const { rowCount } = await fastify.pg.default.query(query)
-        if (rowCount == 0) {
-            await fastify.pg.default.query(`CREATE DATABASE ${process.env.DBNAME};`)
-        }
-    }
-    catch (err) {
-        fastify.log.error(err)
-        process.exit(1)
+    // Run a query on pg_database to check if database with DBNAME exists
+    const query = `SELECT FROM pg_database WHERE datname = '${process.env.DBNAME}';`
+    const { rowCount } = await fastify.pg.default.query(query)
+    if (rowCount == 0) {
+        await fastify.pg.default.query(`CREATE DATABASE ${process.env.DBNAME};`)
     }
 
     // Connect to the database for this application
     await fastify.register(fastifyPostgres, {
         connectionString: process.env.DB_CONNECTION_STRING
     })
-    
-    // Create tables if they do not exist
-    fastify.pg.query('CREATE TABLE IF NOT EXISTS Usr(id BIGSERIAL PRIMARY KEY, email TEXT, password TEXT, is_admin BOOLEAN);')
 
+    // Create tables if they do not exist
+    fastify.pg.query('CREATE TABLE IF NOT EXISTS Usr(id BIGSERIAL PRIMARY KEY, email TEXT UNIQUE NOT NULL, password TEXT NOT NULL, is_admin BOOLEAN DEFAULT FALSE);')
 
     fastify.log.info("Connected to the database....")
 })
