@@ -13,9 +13,7 @@ export default fp(async (fastify) => {
     const env = ['CONNECTION_STRING', 'DBNAME', 'DB_CONNECTION_STRING'];
     for (let i = 0; i < env.length; i++) {
         if (!(env[i] in process.env)) {
-            fastify.log.error(`${env[i]} environment variable not set.`)
-            fastify.log.error('Exiting...')
-            process.exit(1)
+            throw new Error(`${env[i]} environment variable not set.`)
         }
 
     }
@@ -54,8 +52,3 @@ export default fp(async (fastify) => {
 
     fastify.log.info("Connected to the database....")
 })
-
-declare module 'fastify' {
-    export interface FastifyInstance {
-    }
-}

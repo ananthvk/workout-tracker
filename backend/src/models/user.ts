@@ -16,7 +16,3 @@ const verifyUser = async (email: string, password: string): Promise<boolean> => 
 const generateJWT = async(id: string) => {
 }
 */
-
-/*
-const verifyJWT = async()
-*/

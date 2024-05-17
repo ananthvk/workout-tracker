@@ -6,6 +6,7 @@ services:
       - CONNECTION_STRING=postgresql://postgres:dev@db:5432/postgres
       - DB_CONNECTION_STRING=postgresql://postgres:dev@db:5432/wdb
       - DBNAME=wdb
+      - JWT_KEY=development
     ports:
       - 127.0.0.1:3000:3000
     expose:
