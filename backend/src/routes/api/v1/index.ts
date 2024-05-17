@@ -35,7 +35,7 @@ const index: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
     await fastify.register(fastifySwaggerUi, {
         routePrefix: '/docs',
         uiConfig: {
-            docExpansion: 'full',
+            docExpansion: 'list',
             deepLinking: false
         },
         uiHooks: {

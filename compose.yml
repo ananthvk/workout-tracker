@@ -20,6 +20,9 @@ services:
     image: postgres:16-alpine
     expose:
       - 5432
+    # Also expose the DB on the local machine so that tests can run on it
+    ports:
+      - 127.0.0.1:5432:5432
     networks:
       - workout-tracker-net
     volumes:

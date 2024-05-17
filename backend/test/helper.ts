@@ -21,7 +21,9 @@ async function config () {
 // Automatically build and tear down our instance
 async function build (t: TestContext) {
   // you can set all the options supported by the fastify CLI command
-  const argv = [AppPath]
+  
+  // pass the -o flag so that options such as disabling ajv coercing are enabled
+  const argv = [AppPath, "-o"]
 
   // fastify-plugin ensures that all decorators
   // are exposed for testing purposes, this is

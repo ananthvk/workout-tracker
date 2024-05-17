@@ -2,6 +2,7 @@ import * as path from 'path';
 import AutoLoad, { AutoloadPluginOptions } from '@fastify/autoload';
 import { FastifyPluginAsync } from 'fastify';
 import { fileURLToPath } from 'url'
+import fastifyPlugin from 'fastify-plugin';
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -55,5 +56,6 @@ const app: FastifyPluginAsync<AppOptions> = async (
 
 };
 
-export default app;
+// Wrap the app in fastify-plugin so that the tests can find the decorators, and other plugins
+export default fastifyPlugin(app);
 export { app, options }
