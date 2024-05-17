@@ -31,7 +31,7 @@ const index: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
         }
     })
     
-    // The docs is available at /api/v1/docs
+    // Make the docs available at /api/v1/docs
     await fastify.register(fastifySwaggerUi, {
         routePrefix: '/docs',
         uiConfig: {
@@ -48,6 +48,7 @@ const index: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
         transformSpecificationClone: true
     })
 
+    // Register user authentication routes
     fastify.register(userRoutes)
 
 }

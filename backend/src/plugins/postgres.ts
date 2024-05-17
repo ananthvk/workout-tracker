@@ -6,10 +6,8 @@ import fastifyPostgres from "@fastify/postgres";
 import fp from "fastify-plugin"
 
 export default fp(async (fastify) => {
-    /*
-     * Checks if required environment variables are set.
-     * If the environment variable is not set, exit
-     */
+    // Checks if required environment variables are set.
+    // If the environment variable is not set, exit
     const env = ['CONNECTION_STRING', 'DBNAME', 'DB_CONNECTION_STRING'];
     for (let i = 0; i < env.length; i++) {
         if (!(env[i] in process.env)) {
@@ -18,9 +16,7 @@ export default fp(async (fastify) => {
 
     }
 
-    /*
-     * Registers fastify-postgres plugin by specifying the connection string
-     */
+    // Registers fastify-postgres plugin by specifying the connection string
     fastify.log.info("Initializing postgres plugin...")
     await fastify.register(fastifyPostgres, {
         connectionString: process.env.CONNECTION_STRING,

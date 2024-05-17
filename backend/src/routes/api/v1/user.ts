@@ -1,5 +1,7 @@
+// This module handles user authentication and creation
+// Has endpoints to create and verify JWTs, and to create users
 import { FastifyPluginAsync, FastifyRequest, FastifySchema } from "fastify";
-import { createUser, getUserById } from "../../../models/user.js";
+import { createUser, getUserById, verifyUser } from "../../../models/user.js";
 
 const routes: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
 
@@ -33,13 +35,6 @@ const routes: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
     })
 
     const getUserSchema: FastifySchema = {
-        params: {
-            type: "object",
-            required: ["user_id"],
-            properties: {
-                user_id: { type: "string" }
-            }
-        },
         tags: ["auth"],
         security: [
             {
@@ -48,8 +43,46 @@ const routes: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
         ]
     }
 
-    fastify.get<{ Params: { user_id: string } }>("/user/:user_id", { schema: getUserSchema, preHandler: fastify.authenticate }, async (request: FastifyRequest<{ Params: { user_id: string } }>, reply) => {
-        reply.send(await getUserById(fastify, request.params.user_id))
+    // Returns sensitive details such as email of the currently logged in user
+    fastify.get("/user", { schema: getUserSchema, preHandler: fastify.authenticate }, async (request, reply) => {
+        reply.send(await getUserById(fastify, (request.user as any).id))
+    })
+
+    const generateTokenSchema: FastifySchema = {
+        body: {
+            type: "object",
+            required: ["email", "password"],
+            properties: {
+                email: {
+                    type: "string"
+                },
+                password: {
+                    type: "string"
+                }
+            },
+        },
+        tags: ["auth"],
+        response: {
+            200:{
+                type: "object",
+                properties: {
+                    token: {type: "string"}
+                }
+            },
+            401: {
+                type: "object",
+                properties: {
+                    error: { type: "string" },
+                    message: { type: "string" }
+                }
+            }
+        }
+    }
+
+    fastify.post("/token", { schema: generateTokenSchema }, async (request: FastifyRequest<{ Body: { email: string, password: string } }>, reply) => {
+        const user = await verifyUser(fastify, request.body.email, request.body.password)
+        const token = await reply.jwtSign({ "id": user.id }, { expiresIn: fastify.tokenExpiresIn })
+        return { token }
     })
 
 }

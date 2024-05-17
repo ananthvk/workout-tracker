@@ -10,7 +10,8 @@ class StatusError extends Error {
 }
 
 
-const getUserById = async (fastify: FastifyInstance, id: string): Promise<User | null> => {
+// This function returns the user specified by the ID
+const getUserById = async (fastify: FastifyInstance, id: string): Promise<User> => {
     const { rows, rowCount } = await fastify.pg.query(
         'SELECT id, email FROM Usr WHERE id=$1;',
         [id]
@@ -27,11 +28,12 @@ const getUserById = async (fastify: FastifyInstance, id: string): Promise<User |
     }
 }
 
+// This functions adds an user to the database
 const createUser = async (fastify: FastifyInstance, email: string, password: string): Promise<User> => {
     try {
         const { rows } = await fastify.pg.query(
-            `INSERT INTO Usr (email, password) VALUES ($1, $2) RETURNING id`,
-            [email, password]
+            'INSERT INTO Usr (email, password) VALUES ($1, $2) RETURNING id',
+            [email, await fastify.hash(password)]
         )
         return {
             id: rows[0].id,
@@ -41,7 +43,7 @@ const createUser = async (fastify: FastifyInstance, email: string, password: str
     catch (err: any) {
         let e = new StatusError()
         e.statusCode = 400;
-        if (err.code == '23505') {
+        if (err.code == "23505") {
             e.message = "Email has already been registered"
         }
         else {
@@ -52,12 +54,19 @@ const createUser = async (fastify: FastifyInstance, email: string, password: str
 
 }
 
-/*
-const verifyUser = async (email: string, password: string): Promise<boolean> => {
+// Verifies if the email and password are correct
+const verifyUser = async (fastify: FastifyInstance, email: string, password: string): Promise<User> => {
+    const { rows, rowCount } = await fastify.pg.query("SELECT id, password FROM Usr WHERE email=$1;", [email])
+    if (rowCount == 0 || !(await fastify.check(password, rows[0].password))) {
+        let err = new StatusError("Invalid email/password")
+        err.statusCode = 401;
+        throw err;
+    }
+    return {
+        id: rows[0].id,
+        email: email
+    }
 }
 
-const generateJWT = async(id: string) => {
-}
-*/
 
-export { getUserById, createUser }
+export { getUserById, createUser, verifyUser }

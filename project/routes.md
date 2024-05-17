@@ -4,10 +4,12 @@ All routes have to be prefixed with the version, i.e.
 `/api/v1`, etc.
 
 ```
-GET /user/{user_id} - Return user information (If logged in, extra details such as email id)
+GET /user - If logged in, return current user information with all details
 PATCH /user/{user_id} - Modifies user details
 POST /users - Create a new user
 POST /token - Authenticates the user and returns a JWT
+
+GET /profile/{profile_id} - Return the profile of a user
 
 GET /exercise/{exercise_id} - Return all details about an exercise
 POST /excercises - Create a new exercise
