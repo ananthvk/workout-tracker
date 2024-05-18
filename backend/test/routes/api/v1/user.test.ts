@@ -19,7 +19,7 @@ t.test('user tests', async (t) => {
             method: "POST",
             payload: {
                 "email": "123@example.com",
-                "password": "password8A3"
+                "password": "3sdfZXd8lk121!"
             }
         })
 
@@ -32,13 +32,13 @@ t.test('user tests', async (t) => {
             method: "POST",
             payload: {
                 "email": "123@example.com",
-                "password": "password8A3ss"
+                "password": "3sdfZXd8lk121!"
             }
         })
         t.equal(res2.statusCode, 400)
     })
 
-    t.test("reject creation of users when fields are missing or incorrect", async (t) => {
+    t.test("reject creation of users when fields are missing or incorrect or too weak", async (t) => {
 
         const payloads: any = [
             { "password": "sdftestpassword" },
@@ -51,6 +51,9 @@ t.test('user tests', async (t) => {
             { "email": "x@x", "password": "thisissomepassword44s21A" },
             { "email": "x@xyz.com", "password": "toolongpasswordA3xixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixix" },
             { "email": "valid@email.com", "password": "short" },
+            { "email": "valid@email.com", "password": "admin" },
+            { "email": "valid@email.com", "password": "12345678a" },
+            { "email": "valid@email.com", "password": "xx3@12!a" },
         ]
 
         for (const payload of payloads) {
@@ -70,7 +73,7 @@ t.test('user tests', async (t) => {
             method: "POST",
             payload: {
                 "email": "123@example.com",
-                "password": "passwordxA23"
+                "password": "xckj839Adkk!whikt"
             }
         })
         t.equal(res.statusCode, 200)
@@ -80,7 +83,7 @@ t.test('user tests', async (t) => {
             method: "POST",
             payload: {
                 "email": "123@example.com",
-                "password": "passwordxA23"
+                "password": "xckj839Adkk!whikt"
             }
         })
         t.equal(token.statusCode, 200)
@@ -92,7 +95,7 @@ t.test('user tests', async (t) => {
             method: "POST",
             payload: {
                 "email": "123@exs.com",
-                "password": "password"
+                "password": "xckj839Adkk!whiktpassword"
             }
         })
         t.equal(invalidToken.statusCode, 401)
@@ -102,7 +105,7 @@ t.test('user tests', async (t) => {
             method: "POST",
             payload: {
                 "email": "123@example.com",
-                "password": "wrongpassword"
+                "password": "xckj839Adkk!whiktwrongpassword"
             }
         })
         t.equal(invalidToken.statusCode, 401)
@@ -121,7 +124,7 @@ t.test('user tests', async (t) => {
             method: "POST",
             payload: {
                 "email": "123@example",
-                "password": "wrongpasswordX32"
+                "password": "xckj839Adkk!whiktwrongpasswordX32"
             }
         })
         t.equal(invalidToken.statusCode, 401)
@@ -156,7 +159,7 @@ t.test('user tests', async (t) => {
             method: "POST",
             payload: {
                 "email": "123@example.com",
-                "password": "password33A4"
+                "password": "xckj839Adkk!whikt"
             }
         })
 
@@ -166,7 +169,7 @@ t.test('user tests', async (t) => {
             method: "POST",
             payload: {
                 "email": "123@example.com",
-                "password": "password33A4"
+                "password": "xckj839Adkk!whikt"
             }
         })
 
@@ -190,7 +193,7 @@ t.test('user tests', async (t) => {
             method: "POST",
             payload: {
                 "email": "123@example.com",
-                "password": "password33A4"
+                "password": "xckj839Adkk!whikt"
             }
         })
 
@@ -200,7 +203,7 @@ t.test('user tests', async (t) => {
             method: "POST",
             payload: {
                 "email": "123@example.com",
-                "password": "password33A4"
+                "password": "xckj839Adkk!whikt"
             }
         })
 

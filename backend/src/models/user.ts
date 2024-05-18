@@ -1,5 +1,6 @@
 import { FastifyInstance } from "fastify"
 import validator from "validator"
+import z from "zxcvbn"
 
 const maxPasswordLength = 72
 const minPasswordLength = 8
@@ -52,12 +53,17 @@ const createUser = async (fastify: FastifyInstance, email: string, password: str
         e.statusCode = 400;
         throw e;
     }
-    if (!validator.isStrongPassword(password, { minLength: minPasswordLength, minSymbols: 0 })) {
-        let e = new StatusError(`Password does not meet minimum requirements: at least one uppercase, lowercase, number and minimum length ${minPasswordLength}`)
+    if (!validator.isStrongPassword(password, { minLength: minPasswordLength, minSymbols: 0, minUppercase: 0 })) {
+        let e = new StatusError(`Password does not meet minimum requirements: at least one lowercase, number and minimum length ${minPasswordLength}`)
         e.statusCode = 400;
         throw e;
     }
-    // TODO: Check for commonly used passwords
+    const passwordStrength = z(password)
+    if (passwordStrength.score != 4) {
+        let e = new StatusError(passwordStrength.feedback.warning || 'Your password is weak, use a better password')
+        e.statusCode = 400;
+        throw e;
+    }
 
     try {
         const { rows } = await fastify.pg.query(
@@ -84,13 +90,13 @@ const createUser = async (fastify: FastifyInstance, email: string, password: str
 
 // Verifies if the email and password are correct
 const verifyUser = async (fastify: FastifyInstance, email: string, password: string): Promise<User> => {
-    // Do not hit the db if the email or password cannot be correct, i.e. if the password is too short or does not meet the requirements
+    // Do not hit the db if the email is invalid
     if (!validator.isEmail(email)) {
         let e = new StatusError("Invalid email/password")
         e.statusCode = 401;
         throw e
     }
-    if (password.length > maxPasswordLength || !validator.isStrongPassword(password, { minLength: minPasswordLength, minSymbols: 0 })) {
+    if (password.length > maxPasswordLength || !validator.isStrongPassword(password, { minLength: minPasswordLength, minSymbols: 0, minUppercase: 0 })) {
         let e = new StatusError("Invalid email/password")
         e.statusCode = 401;
         throw e;
