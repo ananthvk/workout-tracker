@@ -2,9 +2,10 @@ import { FastifyInstance } from "fastify"
 import { build } from "../../../helper.js"
 import t from "tap"
 
+
 t.test("check creation of a user", async (t) => {
     const app: FastifyInstance = await build(t)
-    app.pg.query('DELETE FROM Usr;')
+    await app.pg.query('DELETE FROM Usr;')
 
     const res = await app.inject({
         url: "/api/v1/users",
@@ -54,7 +55,7 @@ t.test("reject creation of users when fields are missing or incorrect", async (t
 
 t.test("check token", async (t) => {
     const app: FastifyInstance = await build(t)
-    app.pg.query('DELETE FROM Usr;')
+    await app.pg.query('DELETE FROM Usr;')
 
     const res = await app.inject({
         url: "/api/v1/users",
@@ -64,6 +65,7 @@ t.test("check token", async (t) => {
             "password": "password"
         }
     })
+    t.equal(res.statusCode, 200)
 
     const token = await app.inject({
         url: "/api/v1/token",
@@ -109,7 +111,7 @@ t.test("check token", async (t) => {
 
 t.test("test user can get their details", async (t) => {
     const app: FastifyInstance = await build(t)
-    app.pg.query('DELETE FROM Usr;')
+    await app.pg.query('DELETE FROM Usr;')
 
     // First create a user
     const res = await app.inject({
