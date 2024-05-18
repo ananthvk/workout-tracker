@@ -1,4 +1,5 @@
 import { FastifyInstance } from "fastify"
+import validator from "validator"
 
 interface User {
     id: string,
@@ -30,6 +31,24 @@ const getUserById = async (fastify: FastifyInstance, id: string): Promise<User> 
 
 // This functions adds an user to the database
 const createUser = async (fastify: FastifyInstance, email: string, password: string): Promise<User> => {
+    // Validate email and password to check if they are valid before inserting into database
+    if (!validator.isEmail(email)) {
+        let e = new StatusError("Invalid email id")
+        e.statusCode = 400;
+        throw e
+    }
+    if (password.length > 72) {
+        let e = new StatusError("Password too long")
+        e.statusCode = 400;
+        throw e;
+    }
+    if (!validator.isStrongPassword(password, { minLength: 8, minSymbols: 0 })) {
+        let e = new StatusError("Password does not meet minimum requirements: at least one uppercase, lowercase, number and minimum length 8")
+        e.statusCode = 400;
+        throw e;
+    }
+    // TODO: Check for commonly used passwords
+
     try {
         const { rows } = await fastify.pg.query(
             'INSERT INTO Usr (email, password) VALUES ($1, $2) RETURNING id',
@@ -43,11 +62,9 @@ const createUser = async (fastify: FastifyInstance, email: string, password: str
     catch (err: any) {
         let e = new StatusError()
         e.statusCode = 400;
+        e.message = "Error while creating user"
         if (err.code == "23505") {
             e.message = "Email has already been registered"
-        }
-        else {
-            e.message = "Error while creating user"
         }
         throw e;
     }

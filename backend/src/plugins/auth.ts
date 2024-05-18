@@ -9,8 +9,11 @@ const NUMBER_OF_PASSWORD_ROUNDS = 10
 const JWT_EXPIRES_IN = "30d"
 
 export default fp(async (fastify) => {
+
+    /* c8 ignore start */
     if (!("JWT_KEY" in process.env))
         throw new Error("JWT_KEY Environment variable not set. Required for authentication")
+    /* c8 ignore stop */
 
     await fastify
         .register(auth)

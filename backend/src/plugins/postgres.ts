@@ -10,10 +10,11 @@ export default fp(async (fastify) => {
     // If the environment variable is not set, exit
     const env = ['CONNECTION_STRING', 'DBNAME', 'DB_CONNECTION_STRING'];
     for (let i = 0; i < env.length; i++) {
+        /* c8 ignore start */
         if (!(env[i] in process.env)) {
             throw new Error(`${env[i]} environment variable not set.`)
         }
-
+        /* c8 ignore stop */
     }
 
     // Registers fastify-postgres plugin by specifying the connection string
@@ -26,7 +27,13 @@ export default fp(async (fastify) => {
     // Try creating the database for this app if it does not exist
     // Run a query on pg_database to check if database with DBNAME exists
     const query = `SELECT FROM pg_database WHERE datname = '${process.env.DBNAME}';`
-    const { rowCount } = await fastify.pg.default.query(query)
+    let { rowCount } = await fastify.pg.default.query(query)
+
+    if (process.env.NODE_ENV === "test" && rowCount != 0) {
+        await fastify.pg.default.query(`DROP DATABASE ${process.env.DBNAME};`)
+        rowCount = 0;
+    }
+
     if (rowCount == 0) {
         await fastify.pg.default.query(`CREATE DATABASE ${process.env.DBNAME};`)
     }
