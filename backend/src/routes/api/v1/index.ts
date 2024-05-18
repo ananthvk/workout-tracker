@@ -3,7 +3,7 @@ import fastifySwagger from "@fastify/swagger"
 import fastifySwaggerUi from "@fastify/swagger-ui"
 import userRoutes from './user.js'
 
-const index: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
+const index: FastifyPluginAsync = async (fastify, _): Promise<void> => {
     // Register Swagger UI Endpoints for API documentation
     /* c8 ignore start */
     await fastify.register(fastifySwagger, {
@@ -31,7 +31,7 @@ const index: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
             ]
         }
     })
-    
+
     // Make the docs available at /api/v1/docs
     await fastify.register(fastifySwaggerUi, {
         routePrefix: '/docs',
@@ -45,7 +45,7 @@ const index: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
         },
         staticCSP: true,
         transformStaticCSP: (header) => header,
-        transformSpecification: (swaggerObject, request, reply) => { return swaggerObject },
+        transformSpecification: (swaggerObject, _, __) => { return swaggerObject },
         transformSpecificationClone: true
     })
     /* c8 ignore stop */

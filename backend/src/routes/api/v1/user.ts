@@ -4,7 +4,7 @@ import { FastifyPluginAsync, FastifyRequest } from "fastify";
 import { AuthTokenDecoded, createUser, getUserById, verifyUser } from "../../../models/user.js";
 import { createUserSchema, generateTokenSchema, getUserSchema } from "../../../schemas/user.js";
 
-const routes: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
+const routes: FastifyPluginAsync = async (fastify, _): Promise<void> => {
 
     // TODO: Add other security features such as captcha and email confirmation before signup
     fastify.post("/users", { schema: createUserSchema }, async (request: FastifyRequest<{ Body: { email: string, password: string } }>, reply) => {

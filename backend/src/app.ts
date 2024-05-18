@@ -9,12 +9,12 @@ const __dirname = path.dirname(__filename)
 
 export type AppOptions = {
     // Place your custom options for app below here.
-    logger: any
+    logger: object
 } & Partial<AutoloadPluginOptions>;
 
 
 // Pass --options via CLI arguments in command to enable these options.
-const options: any = {
+const options: object = {
     logger: {
         transport: {
             target: "@fastify/one-line-logger",

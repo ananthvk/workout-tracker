@@ -39,6 +39,7 @@
     "validator": "^13.12.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.3.0",
     "@types/bcrypt": "^5.0.2",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.12.12",
@@ -46,10 +47,13 @@
     "@types/validator": "^13.11.10",
     "c8": "^9.0.0",
     "concurrently": "^8.2.2",
+    "eslint": "^9.3.0",
     "fastify-tsconfig": "^2.0.0",
+    "husky": "^9.0.11",
     "tap": "^18.8.0",
     "ts-node": "^10.4.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.9.0"
   },
   "packageManager": "pnpm@8.15.1"
 }
