@@ -1,6 +1,20 @@
 import { FastifyInstance } from "fastify"
 import validator from "validator"
-import z from "zxcvbn"
+import { zxcvbn, zxcvbnOptions } from '@zxcvbn-ts/core'
+import * as zxcvbnCommonPackage from '@zxcvbn-ts/language-common'
+import * as zxcvbnEnPackage from '@zxcvbn-ts/language-en'
+
+const options = {
+  translations: zxcvbnEnPackage.translations,
+  graphs: zxcvbnCommonPackage.adjacencyGraphs,
+  dictionary: {
+    ...zxcvbnCommonPackage.dictionary,
+    ...zxcvbnEnPackage.dictionary,
+  },
+}
+
+zxcvbnOptions.setOptions(options)
+
 
 const maxPasswordLength = 72
 const minPasswordLength = 8
@@ -58,7 +72,7 @@ const createUser = async (fastify: FastifyInstance, email: string, password: str
         e.statusCode = 400;
         throw e;
     }
-    const passwordStrength = z(password)
+    const passwordStrength = zxcvbn(password)
     if (passwordStrength.score != 4) {
         let e = new StatusError(passwordStrength.feedback.warning || 'Your password is weak, use a better password')
         e.statusCode = 400;
