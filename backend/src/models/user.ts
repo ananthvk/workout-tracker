@@ -1,6 +1,9 @@
 import { FastifyInstance } from "fastify"
 import validator from "validator"
 
+const maxPasswordLength = 72
+const minPasswordLength = 8
+
 interface User {
     id: string,
     email: string
@@ -44,13 +47,13 @@ const createUser = async (fastify: FastifyInstance, email: string, password: str
         e.statusCode = 400;
         throw e
     }
-    if (password.length > 72) {
+    if (password.length > maxPasswordLength) {
         let e = new StatusError("Password too long")
         e.statusCode = 400;
         throw e;
     }
-    if (!validator.isStrongPassword(password, { minLength: 8, minSymbols: 0 })) {
-        let e = new StatusError("Password does not meet minimum requirements: at least one uppercase, lowercase, number and minimum length 8")
+    if (!validator.isStrongPassword(password, { minLength: minPasswordLength, minSymbols: 0 })) {
+        let e = new StatusError(`Password does not meet minimum requirements: at least one uppercase, lowercase, number and minimum length ${minPasswordLength}`)
         e.statusCode = 400;
         throw e;
     }
@@ -87,7 +90,7 @@ const verifyUser = async (fastify: FastifyInstance, email: string, password: str
         e.statusCode = 401;
         throw e
     }
-    if (password.length > 72 || !validator.isStrongPassword(password, { minLength: 8, minSymbols: 0 })) {
+    if (password.length > maxPasswordLength || !validator.isStrongPassword(password, { minLength: minPasswordLength, minSymbols: 0 })) {
         let e = new StatusError("Invalid email/password")
         e.statusCode = 401;
         throw e;
