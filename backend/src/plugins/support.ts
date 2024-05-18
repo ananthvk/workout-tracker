@@ -1,4 +1,4 @@
-import fp from 'fastify-plugin'
+import fp from "fastify-plugin";
 
 /* c8 ignore start */
 
@@ -9,13 +9,13 @@ export interface SupportPluginOptions {
 // The use of fastify-plugin is required to be able
 // to export the decorators to the outer scope
 export default fp<SupportPluginOptions>(async (fastify, _) => {
-  fastify.decorate('someSupport', function () {
-    return 'hugs'
-  })
-})
+  fastify.decorate("someSupport", function () {
+    return "hugs";
+  });
+});
 
 // When using .decorate you have to specify added properties for Typescript
-declare module 'fastify' {
+declare module "fastify" {
   export interface FastifyInstance {
     someSupport(): string;
   }

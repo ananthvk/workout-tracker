@@ -1,2 +1,4 @@
+cd backend
 pnpm run precommit
-exit 1
+pnpm prettier --write .
+git add -A

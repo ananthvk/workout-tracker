@@ -1,5 +1,5 @@
 {
-// "extends": "fastify-tsconfig",
+  // "extends": "fastify-tsconfig",
   "compilerOptions": {
     "outDir": "dist",
     "sourceMap": true,
@@ -16,9 +16,7 @@
     "isolatedModules": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "lib": [
-      "ESNext"
-    ]
+    "lib": ["ESNext"]
   },
   "include": ["src/**/*.ts"]
 }

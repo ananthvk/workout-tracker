@@ -1,22 +1,22 @@
-import { build } from '../helper.js'
-import t from 'tap'
+import { build } from "../helper.js";
+import t from "tap";
 
-t.test('api root url', async (t) => {
-    const app = await build(t, "test_root")
+t.test("api root url", async (t) => {
+  const app = await build(t, "test_root");
 
-    const res = await app.inject({
-        url: '/'
-    })
-    
-    t.equal(res.statusCode, 302)
-})
+  const res = await app.inject({
+    url: "/",
+  });
 
-t.test('api not found urls', async (t) => {
-    const app = await build(t, "test_root")
+  t.equal(res.statusCode, 302);
+});
 
-    const res = await app.inject({
-        url: '/somerandomurl/doesnotexist'
-    })
-    
-    t.equal(res.statusCode, 404)
-})
+t.test("api not found urls", async (t) => {
+  const app = await build(t, "test_root");
+
+  const res = await app.inject({
+    url: "/somerandomurl/doesnotexist",
+  });
+
+  t.equal(res.statusCode, 404);
+});
