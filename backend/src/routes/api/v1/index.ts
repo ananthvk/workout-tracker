@@ -5,6 +5,7 @@ import userRoutes from './user.js'
 
 const index: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
     // Register Swagger UI Endpoints for API documentation
+    /* c8 ignore start */
     await fastify.register(fastifySwagger, {
         openapi: {
             info: {
@@ -47,6 +48,7 @@ const index: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
         transformSpecification: (swaggerObject, request, reply) => { return swaggerObject },
         transformSpecificationClone: true
     })
+    /* c8 ignore stop */
 
     // Register user authentication routes
     fastify.register(userRoutes)

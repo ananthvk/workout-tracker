@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "NODE_ENV=test FASTIFY_AUTOLOAD_TYPESCRIPT=1 tap run --reporter=terse --node-arg=\"--no-deprecation\"",
+    "test": "NODE_ENV=test FASTIFY_AUTOLOAD_TYPESCRIPT=1 tap run --node-arg=\"--no-deprecation\"",
     "start": "pnpm run build:ts && fastify start -o -l info dist/app.js",
     "build:ts": "tsc",
     "watch:ts": "tsc -w",
