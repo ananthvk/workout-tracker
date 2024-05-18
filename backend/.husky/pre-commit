@@ -1,0 +1,2 @@
+pnpm run precommit
+exit 1
