@@ -4,7 +4,7 @@ import t from "tap"
 
 
 t.test("check creation of a user", async (t) => {
-    const app: FastifyInstance = await build(t)
+    const app: FastifyInstance = await build(t, "test_user")
     await app.pg.query('DELETE FROM Usr;')
 
     const res = await app.inject({
@@ -32,7 +32,7 @@ t.test("check creation of a user", async (t) => {
 })
 
 t.test("reject creation of users when fields are missing or incorrect", async (t) => {
-    const app: FastifyInstance = await build(t)
+    const app: FastifyInstance = await build(t, "test_user")
 
     const payloads: any = [
         { "password": "sdftestpassword" },
@@ -54,7 +54,7 @@ t.test("reject creation of users when fields are missing or incorrect", async (t
 })
 
 t.test("check token", async (t) => {
-    const app: FastifyInstance = await build(t)
+    const app: FastifyInstance = await build(t, "test_user")
     await app.pg.query('DELETE FROM Usr;')
 
     const res = await app.inject({
@@ -110,7 +110,7 @@ t.test("check token", async (t) => {
 })
 
 t.test("test user can get their details", async (t) => {
-    const app: FastifyInstance = await build(t)
+    const app: FastifyInstance = await build(t, "test_user")
     await app.pg.query('DELETE FROM Usr;')
 
     // First create a user
