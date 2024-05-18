@@ -115,6 +115,38 @@ t.test('user tests', async (t) => {
             }
         })
         t.equal(invalidToken.statusCode, 400)
+
+        invalidToken = await app.inject({
+            url: "/api/v1/token",
+            method: "POST",
+            payload: {
+                "email": "123@example",
+                "password": "wrongpasswordX32"
+            }
+        })
+        t.equal(invalidToken.statusCode, 401)
+
+
+        invalidToken = await app.inject({
+            url: "/api/v1/token",
+            method: "POST",
+            payload: {
+                "email": "123@example.com",
+                "password": "short"
+            }
+        })
+        t.equal(invalidToken.statusCode, 401)
+
+        invalidToken = await app.inject({
+            url: "/api/v1/token",
+            method: "POST",
+            payload: {
+                "email": "123@example.com",
+                "password": "thisisnotTheCorrec32"
+            }
+        })
+        t.equal(invalidToken.statusCode, 401)
+
     })
 
     t.test("test user can get their details", async (t) => {

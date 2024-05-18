@@ -4,6 +4,12 @@ import validator from "validator"
 interface User {
     id: string,
     email: string
+    is_admin: boolean
+}
+
+interface AuthTokenDecoded {
+    id: string,
+    is_admin: boolean
 }
 
 class StatusError extends Error {
@@ -14,7 +20,7 @@ class StatusError extends Error {
 // This function returns the user specified by the ID
 const getUserById = async (fastify: FastifyInstance, id: string): Promise<User> => {
     const { rows, rowCount } = await fastify.pg.query(
-        'SELECT id, email FROM Usr WHERE id=$1;',
+        'SELECT id, email, is_admin FROM Usr WHERE id=$1;',
         [id]
     )
     if (rowCount == 0) {
@@ -25,7 +31,8 @@ const getUserById = async (fastify: FastifyInstance, id: string): Promise<User> 
     }
     return {
         id: rows[0].id,
-        email: rows[0].email
+        email: rows[0].email,
+        is_admin: rows[0].is_admin
     }
 }
 
@@ -56,7 +63,8 @@ const createUser = async (fastify: FastifyInstance, email: string, password: str
         )
         return {
             id: rows[0].id,
-            email: email
+            email: email,
+            is_admin: false
         }
     }
     catch (err: any) {
@@ -73,7 +81,18 @@ const createUser = async (fastify: FastifyInstance, email: string, password: str
 
 // Verifies if the email and password are correct
 const verifyUser = async (fastify: FastifyInstance, email: string, password: string): Promise<User> => {
-    const { rows, rowCount } = await fastify.pg.query("SELECT id, password FROM Usr WHERE email=$1;", [email])
+    // Do not hit the db if the email or password cannot be correct, i.e. if the password is too short or does not meet the requirements
+    if (!validator.isEmail(email)) {
+        let e = new StatusError("Invalid email/password")
+        e.statusCode = 401;
+        throw e
+    }
+    if (password.length > 72 || !validator.isStrongPassword(password, { minLength: 8, minSymbols: 0 })) {
+        let e = new StatusError("Invalid email/password")
+        e.statusCode = 401;
+        throw e;
+    }
+    const { rows, rowCount } = await fastify.pg.query("SELECT id, password, is_admin FROM Usr WHERE email=$1;", [email])
     if (rowCount == 0 || !(await fastify.check(password, rows[0].password))) {
         let err = new StatusError("Invalid email/password")
         err.statusCode = 401;
@@ -81,9 +100,11 @@ const verifyUser = async (fastify: FastifyInstance, email: string, password: str
     }
     return {
         id: rows[0].id,
-        email: email
+        email: email,
+        is_admin: rows[0].is_admin
     }
 }
 
 
 export { getUserById, createUser, verifyUser }
+export type { AuthTokenDecoded }
