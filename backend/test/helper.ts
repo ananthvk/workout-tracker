@@ -41,7 +41,9 @@ async function build(t: TestContext, dbname: string) {
     const app = await helper.build(argv, await config_(dbname))
 
     // Tear down our app after we are done
-    t.after(() => void app.close())
+    t.after(async () => {
+        app.close()
+    })
 
     return app
 }
