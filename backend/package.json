@@ -9,12 +9,12 @@
   },
   "scripts": {
     "test": "NODE_ENV=test FASTIFY_AUTOLOAD_TYPESCRIPT=1 tap run --node-arg=\"--no-deprecation\"",
-    "start": "pnpm run build:ts && fastify start -o -l info dist/app.js",
-    "build:ts": "tsc",
-    "watch:ts": "tsc -w",
+    "start": "pnpm run build:ts && fastify start -o -l info dist/src/app.js",
+    "build:ts": "swc src -d dist",
+    "watch:ts": "swc src -d dist -w",
     "dev": "pnpm run build:ts && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"pnpm:watch:ts\" \"pnpm:dev:start\"",
-    "dev:start": "fastify start -o --ignore-watch=.ts$ -w -l info -P dist/app.js",
-    "prod": "NODE_ENV=production fastify start -o -l info dist/app.js",
+    "dev:start": "fastify start -o --ignore-watch=.ts$ -w -l info -P dist/src/app.js",
+    "prod": "NODE_ENV=production fastify start -o -l info dist/src/app.js",
     "precommit": "pnpm eslint src && pnpm test",
     "prepare": "cd .. && husky backend/.husky"
   },
