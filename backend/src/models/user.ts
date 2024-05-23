@@ -3,6 +3,7 @@ import validator from "validator";
 import { zxcvbn, zxcvbnOptions } from "@zxcvbn-ts/core";
 import * as zxcvbnCommonPackage from "@zxcvbn-ts/language-common";
 import * as zxcvbnEnPackage from "@zxcvbn-ts/language-en";
+import { StatusError, PostgresError } from "./utils.js";
 
 const options = {
   translations: zxcvbnEnPackage.translations,
@@ -28,16 +29,6 @@ interface AuthTokenDecoded {
   id: string;
   is_admin: boolean;
 }
-
-class StatusError extends Error {
-  statusCode: number | undefined;
-}
-
-/* c8 ignore start */
-class PostgresError extends Error {
-  code: string | undefined;
-}
-/* c8 ignore stop */
 
 // This function returns the user specified by the ID
 const getUserById = async (

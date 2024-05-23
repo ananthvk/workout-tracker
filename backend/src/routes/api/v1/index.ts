@@ -2,6 +2,7 @@ import { FastifyPluginAsync } from "fastify";
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
 import userRoutes from "./user.js";
+import exerciseRoutes from "./exercise.js";
 
 const index: FastifyPluginAsync = async (fastify, _): Promise<void> => {
   // Register Swagger UI Endpoints for API documentation
@@ -27,6 +28,10 @@ const index: FastifyPluginAsync = async (fastify, _): Promise<void> => {
         {
           name: "auth",
           description: "User & Authentication endpoints",
+        },
+        {
+          name: "exercise",
+          description: "Exercise creation and management endpoints",
         },
       ],
     },
@@ -58,6 +63,9 @@ const index: FastifyPluginAsync = async (fastify, _): Promise<void> => {
 
   // Register user authentication routes
   fastify.register(userRoutes);
+
+  // Register exercise routes
+  fastify.register(exerciseRoutes);
 };
 
 export default index;

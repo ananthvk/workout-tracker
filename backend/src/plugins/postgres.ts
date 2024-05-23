@@ -44,9 +44,54 @@ export default fp(async (fastify) => {
   });
 
   // Create tables if they do not exist
-  fastify.pg.query(
-    "CREATE TABLE IF NOT EXISTS Usr(id BIGSERIAL PRIMARY KEY, email TEXT UNIQUE NOT NULL, password TEXT NOT NULL, is_admin BOOLEAN DEFAULT FALSE);",
+  await fastify.pg.query(
+    `CREATE TABLE IF NOT EXISTS Usr(
+        id BIGSERIAL PRIMARY KEY,
+        email TEXT UNIQUE NOT NULL,
+        password TEXT NOT NULL,
+        is_admin BOOLEAN DEFAULT FALSE
+    );
+
+    CREATE INDEX IF NOT EXISTS email_idx ON Usr(email);
+    `,
   );
+
+  // Create tables related to exercise
+  await fastify.pg.query(`
+    CREATE TABLE IF NOT EXISTS ExerciseType(
+        id BIGSERIAL PRIMARY KEY,
+        value TEXT UNIQUE NOT NULL
+    );
+    
+    CREATE TABLE IF NOT EXISTS MuscleType(
+        id BIGSERIAL PRIMARY KEY,
+        value TEXT UNIQUE NOT NULL
+    );
+    
+    CREATE TABLE IF NOT EXISTS Exercise(
+        id BIGSERIAL PRIMARY KEY,
+        name TEXT NOT NULL,
+        description TEXT,
+        benefits TEXT,
+        risks TEXT,
+        image_url TEXT
+    );
+    
+    CREATE TABLE IF NOT EXISTS Exercise_ExerciseType_Rel(
+        exercise_id BIGINT REFERENCES Exercise(id),
+        exercise_type_id BIGINT REFERENCES ExerciseType(id),
+        PRIMARY KEY (exercise_id, exercise_type_id)
+    );
+
+    CREATE TABLE IF NOT EXISTS Exercise_MuscleType_Rel(
+        exercise_id BIGINT REFERENCES Exercise(id),
+        muscle_type_id BIGINT REFERENCES MuscleType(id),
+        PRIMARY KEY (exercise_id, muscle_type_id)
+    );
+
+    CREATE INDEX IF NOT EXISTS exercise_type_idx ON ExerciseType(value);
+    CREATE INDEX IF NOT EXISTS muscle_type_idx ON MuscleType(value);
+    `);
 
   fastify.log.info("Connected to the database....");
 });
