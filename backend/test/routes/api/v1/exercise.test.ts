@@ -10,9 +10,9 @@ t.test("exercise tests", async (t) => {
   });
 
   t.beforeEach(async (t) => {
-    app.pg.query("DELETE FROM Exercise;");
-    app.pg.query("DELETE FROM ExerciseType;");
-    app.pg.query("DELETE FROM MuscleType;");
+    await app.pg.query("DELETE FROM Exercise;");
+    await app.pg.query("DELETE FROM ExerciseType;");
+    await app.pg.query("DELETE FROM MuscleType;");
   });
 
   t.test("check creation of an exercise", async (t) => {

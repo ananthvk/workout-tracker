@@ -10,7 +10,7 @@ t.test("user tests", async (t) => {
   });
 
   t.beforeEach(async (t) => {
-    app.pg.query("DELETE FROM Usr;");
+    await app.pg.query("DELETE FROM Usr;");
   });
 
   t.test("check creation of a user", async (t) => {

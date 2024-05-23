@@ -74,7 +74,7 @@ const getExerciseById = async (
       e.statusCode = 400;
       e.message = "Invalid id";
     } else {
-    /* eslint-enable @typescript-eslint/no-explicit-any */
+      /* eslint-enable @typescript-eslint/no-explicit-any */
       e.statusCode = 404;
     }
     throw e;

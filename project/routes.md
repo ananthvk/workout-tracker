@@ -11,11 +11,16 @@ All routes have to be prefixed with the version, i.e.
 
 - [ ] GET /profile/{profile_id} - Return the profile of a user
 
-- [ ] GET /exercise/{exercise_id} - Return all details about an exercise
-- [ ] POST /excercises - Create a new exercise
+- [x] GET /exercise/{exercise_id} - Return all details about an exercise
+- [x] POST /excercises - Create a new exercise
 - [ ] PATCH /exercise/{exercise_id} - Change exercise details
-- [ ] GET /exercises - Return all exercise ids, along with their name
+- [x] GET /exercises - Return all exercise ids, along with their name
 - [ ] DELETE /exercise/{exercise_id} - Delete an exercise
+
+- [ ] GET /category/muscle/{muscle_name} - Return details about a muscle
+- [ ] POST /category/muscles - Create a new muscle category
+- [ ] GET /category/types/{type_name} - Return details about a type(cardio/strength/etc)
+- [ ] POST /category/types - Create a new exercise category
 
 - [ ] GET /list/{list_id} - Return an exercise list
 - [ ] POST /lists - Create a new exercise list
