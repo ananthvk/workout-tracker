@@ -3,7 +3,7 @@ import validator from "validator";
 import { zxcvbn, zxcvbnOptions } from "@zxcvbn-ts/core";
 import * as zxcvbnCommonPackage from "@zxcvbn-ts/language-common";
 import * as zxcvbnEnPackage from "@zxcvbn-ts/language-en";
-import { StatusError, PostgresError } from "./utils.js";
+import { StatusError, PostgresError, POSTGRES_EEXISTS } from "./utils.js";
 
 const options = {
   translations: zxcvbnEnPackage.translations,
@@ -106,7 +106,7 @@ const createUser = async (
     const e = new StatusError();
     e.statusCode = 400;
     e.message = "Error while creating user";
-    if ((err as PostgresError).code == "23505") {
+    if ((err as PostgresError).code == POSTGRES_EEXISTS) {
       e.message = "Email has already been registered";
     }
     throw e;

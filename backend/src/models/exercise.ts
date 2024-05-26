@@ -1,27 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { StatusError } from "./utils.js";
-
-type Category = string;
-
-interface Exercise {
-  id: string;
-  name: string;
-  description: string;
-  benefits: string;
-  risks: string;
-  image_url: string;
-  exercise_types: Category[];
-  muscle_types: Category[];
-}
-
-interface ExercisePartial {
-  id: string;
-  name: string;
-  image_url: string;
-}
-
-type ExerciseId = string;
-
+import { StatusError, Exercise, ExerciseId, ExercisePartial } from "./utils.js";
 // This function gets an exercise by it's id, it returns detailed information
 // about the exercise including the muscles it targets and the type of exercise
 const getExerciseById = async (

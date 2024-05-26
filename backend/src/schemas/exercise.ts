@@ -10,6 +10,8 @@ const createExerciseSchema: FastifySchema = {
       benefits: { type: "string" },
       risks: { type: "string" },
       image_url: { type: "string" },
+      exercise_types: { type: "array", items: { type: "string" } },
+      muscle_types: { type: "array", items: { type: "string" } },
     },
   },
   response: {
