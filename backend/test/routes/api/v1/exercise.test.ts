@@ -1,6 +1,10 @@
 import { FastifyInstance } from "fastify";
 import { build } from "../../../helper.js";
 import t from "tap";
+import {
+  createMuscleCategory,
+  createTypeCategory,
+} from "../../../../src/models/categories.js";
 
 t.test("exercise tests", async (t) => {
   let app: FastifyInstance;
@@ -10,6 +14,8 @@ t.test("exercise tests", async (t) => {
   });
 
   t.beforeEach(async (t) => {
+    await app.pg.query("DELETE FROM Exercise_MuscleType_Rel;");
+    await app.pg.query("DELETE FROM Exercise_ExerciseType_Rel;");
     await app.pg.query("DELETE FROM Exercise;");
     await app.pg.query("DELETE FROM ExerciseType;");
     await app.pg.query("DELETE FROM MuscleType;");
@@ -140,5 +146,83 @@ t.test("exercise tests", async (t) => {
     t.equal(Array.isArray(res.json().muscle_types), true);
     t.equal(res.json().exercise_types.length, 0);
     t.equal(res.json().muscle_types.length, 0);
+  });
+
+  t.test("test creation of a complete exercise", async (t) => {
+    const types = [
+      await createTypeCategory(app, "cardio"),
+      await createTypeCategory(app, "strength"),
+      await createTypeCategory(app, "flexibility"),
+    ];
+
+    const muscle_types = [
+      await createMuscleCategory(app, "abs"),
+      await createMuscleCategory(app, "biceps"),
+      await createMuscleCategory(app, "xyz"),
+    ];
+
+    const res2 = await app.inject({
+      url: "/api/v1/exercises",
+      method: "POST",
+      body: {
+        name: "Pullup",
+        description: "A warm-up exercise",
+        benefits: "A lot of benefits",
+        risks: "Hmmmm",
+        image_url: "https://example.com/image_url",
+        exercise_types: types,
+        muscle_types: muscle_types,
+      },
+    });
+    t.equal(res2.statusCode, 200);
+  });
+
+  t.test("test duplicate and invalid muscle/type ids", async (t) => {
+    const types = [
+      await createTypeCategory(app, "cardio"),
+      await createTypeCategory(app, "strength"),
+      await createTypeCategory(app, "flexibility"),
+    ];
+    // Duplicate a type id
+    types.push(types[0]);
+
+    const muscle_types = [
+      await createMuscleCategory(app, "abs"),
+      await createMuscleCategory(app, "biceps"),
+      await createMuscleCategory(app, "xyz"),
+    ];
+
+    let res = await app.inject({
+      url: "/api/v1/exercises",
+      method: "POST",
+      body: {
+        name: "Pullup",
+        description: "A warm-up exercise",
+        benefits: "A lot of benefits",
+        risks: "Hmmmm",
+        image_url: "https://example.com/image_url",
+        exercise_types: types,
+        muscle_types: muscle_types,
+      },
+    });
+    t.equal(res.statusCode, 400);
+
+    types.pop();
+    muscle_types.push("99999999999");
+
+    res = await app.inject({
+      url: "/api/v1/exercises",
+      method: "POST",
+      body: {
+        name: "Pullup",
+        description: "A warm-up exercise",
+        benefits: "A lot of benefits",
+        risks: "Hmmmm",
+        image_url: "https://example.com/image_url",
+        exercise_types: types,
+        muscle_types: muscle_types,
+      },
+    });
+    t.equal(res.statusCode, 400);
   });
 });

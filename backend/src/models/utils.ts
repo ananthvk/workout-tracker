@@ -8,6 +8,7 @@ export class PostgresError extends Error {
 }
 
 export const POSTGRES_EEXISTS = "23505";
+export const POSTGRES_EFKEY = "23503";
 
 export type Category = string;
 

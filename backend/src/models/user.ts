@@ -106,7 +106,7 @@ const createUser = async (
     const e = new StatusError();
     e.statusCode = 400;
     e.message = "Error while creating user";
-    if ((err as PostgresError).code == POSTGRES_EEXISTS) {
+    if ((err as PostgresError).code === POSTGRES_EEXISTS) {
       e.message = "Email has already been registered";
     }
     throw e;

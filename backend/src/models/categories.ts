@@ -20,7 +20,7 @@ const createMuscleCategory = async (
     const e = new StatusError();
     e.statusCode = 400;
     e.message = "Error while creating muscle type";
-    if ((err as PostgresError).code == POSTGRES_EEXISTS) {
+    if ((err as PostgresError).code === POSTGRES_EEXISTS) {
       e.message = "Muscle type already exists";
     }
     throw e;
@@ -41,8 +41,8 @@ const createTypeCategory = async (
     const e = new StatusError();
     e.statusCode = 400;
     e.message = "Error while creating exercise type";
-    if ((err as PostgresError).code == POSTGRES_EEXISTS) {
-      e.message = "Exercise type already exists";
+    if ((err as PostgresError).code === POSTGRES_EEXISTS) {
+      e.message = "Exercise/Muscle type already exists";
     }
     throw e;
   }

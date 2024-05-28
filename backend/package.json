@@ -9,6 +9,7 @@
   },
   "scripts": {
     "test": "NODE_ENV=test FASTIFY_AUTOLOAD_TYPESCRIPT=1 tap run --node-arg=\"--no-deprecation\"",
+    "testone": "NODE_ENV=test FASTIFY_AUTOLOAD_TYPESCRIPT=1 pnpm tap run --disable-coverage --allow-incomplete-coverage --allow-empty-coverage --node-arg=\"--no-deprecation\"",
     "start": "pnpm run build:ts && fastify start -o -l info dist/src/app.js",
     "build:ts": "swc src -d dist",
     "build:check": "tsc",
@@ -39,6 +40,7 @@
     "fastify": "^4.26.1",
     "fastify-cli": "^6.1.1",
     "fastify-plugin": "^4.0.0",
+    "pg-format": "^1.0.4",
     "validator": "^13.12.0"
   },
   "devDependencies": {
@@ -50,6 +52,7 @@
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.12.12",
     "@types/pg": "^8.11.6",
+    "@types/pg-format": "^1.0.5",
     "@types/validator": "^13.11.10",
     "c8": "^9.0.0",
     "concurrently": "^8.2.2",
