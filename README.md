@@ -56,7 +56,6 @@ $ pnpm test
  PASS  test/routes/api/v1/exercise.test.ts 27 OK 14s
  PASS  test/routes/api/v1/workoutsession.test.ts 22 OK 16s
  PASS  test/routes/api/v1/user.test.ts 42 OK 17s
- ```
 
 --------------------|---------|----------|---------|---------|-------------------
 File                | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
@@ -92,7 +91,6 @@ All files           |     100 |      100 |     100 |     100 |
 --------------------|---------|----------|---------|---------|-------------------
 
                        
-```
   🌈 TEST COMPLETE 🌈  
                        
 
