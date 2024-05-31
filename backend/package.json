@@ -9,6 +9,7 @@
   },
   "scripts": {
     "test": "NODE_ENV=test FASTIFY_AUTOLOAD_TYPESCRIPT=1 tap run --node-arg=\"--no-deprecation\"",
+    "coverage": "NODE_ENV=test FASTIFY_AUTOLOAD_TYPESCRIPT=1 tap run --node-arg=\"--no-deprecation\" --show-full-coverage",
     "testone": "NODE_ENV=test FASTIFY_AUTOLOAD_TYPESCRIPT=1 pnpm tap run --disable-coverage --allow-incomplete-coverage --allow-empty-coverage --node-arg=\"--no-deprecation\"",
     "start": "pnpm run build:ts && fastify start -o -l info dist/src/app.js",
     "build:ts": "swc src -d dist",

@@ -19,6 +19,9 @@ zxcvbnOptions.setOptions(options);
 const maxPasswordLength = 72;
 const minPasswordLength = 8;
 
+// Accept passwords which score >= this value
+const PASSWORD_THRESHOLD = 3;
+
 interface User {
   id: string;
   email: string;
@@ -83,7 +86,7 @@ const createUser = async (
     throw e;
   }
   const passwordStrength = zxcvbn(password);
-  if (passwordStrength.score != 4) {
+  if (passwordStrength.score < PASSWORD_THRESHOLD) {
     const e = new StatusError(
       passwordStrength.feedback.warning ||
         "Your password is weak, use a better password",

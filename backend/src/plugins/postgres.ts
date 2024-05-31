@@ -93,5 +93,27 @@ export default fp(async (fastify) => {
     CREATE INDEX IF NOT EXISTS muscle_type_idx ON MuscleType(value);
     `);
 
+  // Create tables related to workout session -
+  // WorkoutSession and ExerciseSet
+  await fastify.pg.query(`
+        CREATE TABLE IF NOT EXISTS WorkoutSession(
+            id BIGSERIAL PRIMARY KEY,
+            date_performed TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+            date_added TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
+            total_duration INTERVAL,
+            usr_id BIGINT REFERENCES Usr(id) NOT NULL
+        );
+        
+        CREATE TABLE IF NOT EXISTS ExerciseSet(
+            id BIGSERIAL PRIMARY KEY,
+            reps INT,
+            duration INTERVAL,
+            weight INT,
+            session_id BIGINT REFERENCES WorkoutSession(id) NOT NULL,
+            exercise_id BIGINT NOT NULL,
+            FOREIGN KEY(exercise_id) REFERENCES Exercise(id)
+        );
+    `);
+
   fastify.log.info("Connected to the database....");
 });

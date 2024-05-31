@@ -17,10 +17,10 @@ All routes have to be prefixed with the version, i.e.
 - [x] GET /exercises - Return all exercise ids, along with their name
 - [ ] DELETE /exercise/{exercise_id} - Delete an exercise
 
-- [ ] GET /category/muscles - Get all defined muscles
-- [ ] GET /category/types - Get all defined types
-- [ ] POST /category/muscles - Create a new muscle category
-- [ ] POST /category/types - Create a new exercise category
+- [x] GET /category/muscles - Get all defined muscles
+- [x] GET /category/types - Get all defined types
+- [x] POST /category/muscles - Create a new muscle category
+- [x] POST /category/types - Create a new exercise category
 
 - [ ] GET /list/{list_id} - Return an exercise list
 - [ ] POST /lists - Create a new exercise list

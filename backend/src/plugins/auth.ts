@@ -41,14 +41,14 @@ export default fp(async (fastify) => {
   fastify.decorate(
     "hash",
     async (plainTextPassword: string): Promise<string> => {
-      return bcrypt.hash(plainTextPassword, NUMBER_OF_PASSWORD_ROUNDS);
+      return await bcrypt.hash(plainTextPassword, NUMBER_OF_PASSWORD_ROUNDS);
     },
   );
 
   fastify.decorate(
     "check",
     async (plainTextPassword: string, hash: string): Promise<boolean> => {
-      return bcrypt.compare(plainTextPassword, hash);
+      return await bcrypt.compare(plainTextPassword, hash);
     },
   );
 });

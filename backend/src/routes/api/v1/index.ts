@@ -4,6 +4,7 @@ import fastifySwaggerUi from "@fastify/swagger-ui";
 import userRoutes from "./user.js";
 import exerciseRoutes from "./exercise.js";
 import categoryRoutes from "./categories.js";
+import workoutSessionRoutes from "./workoutsession.js";
 
 const index: FastifyPluginAsync = async (fastify, _): Promise<void> => {
   // Register Swagger UI Endpoints for API documentation
@@ -70,6 +71,9 @@ const index: FastifyPluginAsync = async (fastify, _): Promise<void> => {
 
   // Register category routes
   fastify.register(categoryRoutes);
+
+  // Register workout session, exercise set routes
+  fastify.register(workoutSessionRoutes);
 };
 
 export default index;
