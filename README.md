@@ -1,5 +1,18 @@
 # workout-tracker
 
+The primary purpose of this application is to track and derive insights into workout data. After a workout, people do not usually record or track details about their workout, such as weights used, reps performed, or total workout time. These details are crucial to record progress. This app can help to provide details and suggestions to enable the user to reach their goal.
+
+## Goals
+- Ease of use and ability to add workout details quickly
+- Ability to add new workouts not on the app
+- Cross-platform: Web and mobile
+- Analysis of data with graphs, charts, and statistics
+- Integration with fitness tracking apps (such as Google Fit)
+
+## Features
+- Uses docker-compose for quick setup of development environment
+- Built with fastify and postgresql
+
 
 # How to run?
 First clone the application,
@@ -100,3 +113,13 @@ Suites:     6 pass  0 fail      6 of 6 complete
 # { total: 112, pass: 112 }
 # time=17087.129ms
 ```
+
+## TODO
+- [ ] Only admins should be able to add/modify categories
+- [ ] Implement filters, filter sessions by day/month/range/etc
+- [ ] Implement summary routes
+- [ ] Do not allow extra parameters/fields in requests
+- [ ] Complete the schemas for the response object, also add descriptions
+
+## Note:
+Remove the `/api/v1/reset-db` route from `index.ts`

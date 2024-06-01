@@ -74,6 +74,21 @@ const index: FastifyPluginAsync = async (fastify, _): Promise<void> => {
 
   // Register workout session, exercise set routes
   fastify.register(workoutSessionRoutes);
+
+  // Remove this in production, this route deletes all data from the database
+  /* c8 ignore start */
+  fastify.post("/reset-db", async (_, __) => {
+    await fastify.pg.query("DELETE FROM exercise_exercisetype_rel;");
+    await fastify.pg.query("DELETE FROM exercise_muscletype_rel;");
+    await fastify.pg.query("DELETE FROM exerciseset;");
+    await fastify.pg.query("DELETE FROM exercisetype;");
+    await fastify.pg.query("DELETE FROM muscletype;");
+    await fastify.pg.query("DELETE FROM exercise;");
+    await fastify.pg.query("DELETE FROM workoutsession;");
+    await fastify.pg.query("DELETE FROM usr;");
+    return { success: true };
+  });
+  /* c8 ignore stop */
 };
 
 export default index;

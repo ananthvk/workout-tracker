@@ -5,7 +5,7 @@ const createWorkoutSessionSchema: FastifySchema = {
     type: "object",
     properties: {
       date_performed: { type: "string" },
-      total_duration: { type: "object" },
+      total_duration: { type: "string" },
     },
   },
   response: {
@@ -67,7 +67,7 @@ const createExerciseSetSchema: FastifySchema = {
     properties: {
       exercise_id: { type: "string", minLength: 1 },
       reps: { type: "number" },
-      duration: { type: "object" },
+      duration: { type: "string" },
       weight: { type: "number" },
     },
   },
