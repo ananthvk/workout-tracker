@@ -98,7 +98,7 @@ export default fp(async (fastify) => {
   await fastify.pg.query(`
         CREATE TABLE IF NOT EXISTS WorkoutSession(
             id BIGSERIAL PRIMARY KEY,
-            date_performed TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+            date_performed DATE DEFAULT NOW(),
             date_added TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
             total_duration INTERVAL,
             usr_id BIGINT REFERENCES Usr(id) NOT NULL

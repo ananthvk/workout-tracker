@@ -3,7 +3,7 @@ import { StatusError } from "./utils.js";
 
 interface WorkoutSession {
   id: string;
-  date_performed: string;
+  date_performed?: string;
   usr_id: string;
   date_added?: string;
   total_duration?: object;
@@ -55,13 +55,22 @@ const createWorkoutSession = async (
   fastify: FastifyInstance,
   session: WorkoutSession,
 ): Promise<string> => {
-  const query = `INSERT INTO WorkoutSession(date_performed, total_duration, usr_id) VALUES ($1, $2, $3) RETURNING id;`;
-  try {
-    const { rows } = await fastify.pg.query(query, [
+  let query;
+  let params;
+  if (session.date_performed) {
+    query = `INSERT INTO WorkoutSession(date_performed, total_duration, usr_id) VALUES ($1, $2, $3) RETURNING id;`;
+    params = [
       session.date_performed,
       session.total_duration || null,
       session.usr_id,
-    ]);
+    ];
+  } else {
+    query = `INSERT INTO WorkoutSession(total_duration, usr_id) VALUES ($1, $2) RETURNING id;`;
+    params = [session.total_duration || null, session.usr_id];
+  }
+
+  try {
+    const { rows } = await fastify.pg.query(query, params);
     return rows[0].id;
   } catch (err) {
     const e = new StatusError((err as Error).message);

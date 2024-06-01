@@ -1,5 +1,7 @@
 # workout-tracker
 
+This repository contains the backend of the workout tracker application.
+
 The primary purpose of this application is to track and derive insights into workout data. After a workout, people do not usually record or track details about their workout, such as weights used, reps performed, or total workout time. These details are crucial to record progress. This app can help to provide details and suggestions to enable the user to reach their goal.
 
 ## Goals
