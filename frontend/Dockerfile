@@ -11,12 +11,12 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-l
 
 FROM base AS build
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
-RUN pnpm run build:ts
+RUN pnpm run build
 
 FROM base
 COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=build /app/dist /app/dist
 
 WORKDIR /app
-EXPOSE 3000
-CMD [ "pnpm", "prod"]
+EXPOSE 3001
+CMD [ "pnpm", "serve"]

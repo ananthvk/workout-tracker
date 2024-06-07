@@ -19,7 +19,7 @@
     "dev:start": "fastify start -o --ignore-watch=.ts$ -w -l info -P dist/src/app.js",
     "prod": "NODE_ENV=production fastify start -o -l info dist/src/app.js",
     "precommit": "pnpm eslint src && pnpm test",
-    "prepare": "cd .. && husky backend/.husky"
+    "husky_prepare": "(cd .. && pnpm husky backend/.husky)"
   },
   "keywords": [],
   "author": "",
@@ -66,5 +66,5 @@
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.9.0"
   },
-  "packageManager": "pnpm@8.15.1"
+  "packageManager": "pnpm@9.2.0"
 }
