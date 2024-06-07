@@ -1,26 +1,19 @@
 services:
   frontend:
-    build: 
-      context: ./frontend
-      target: build
-    command: pnpm dev --host
+    build: frontend
+    command: pnpm serve
     depends_on:
       - backend
     networks:
       - workout-tracker-net
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
     expose:
-      - 5173
+      - 3001
     ports:
-      - 127.0.0.1:3001:5173
+      - 127.0.0.1:3001:3001
 
   backend:
-    build:
-      context: ./backend
-      target: build
-    command: pnpm dev
+    build: backend
+    command: pnpm prod
     depends_on:
       - db
     environment:
@@ -33,9 +26,6 @@ services:
       - 127.0.0.1:3000:3000
     expose:
       - 3000
-    volumes:
-      - ./backend:/app
-      - /app/node_modules
     networks:
       - workout-tracker-net
   

@@ -1,0 +1,6 @@
+cd backend
+# Since we are using swc, before commiting, perform a typecheck using tsc
+pnpm build:check
+pnpm run precommit
+pnpm prettier --write .
+git add -A
