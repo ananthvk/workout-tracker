@@ -1,10 +1,10 @@
+import ExerciseList from "./components/ExerciseList"
+
 function App() {
 
   return (
     <>
-        <h1>
-            Hello world
-        </h1>
+        <ExerciseList/>
     </>
   )
 }
