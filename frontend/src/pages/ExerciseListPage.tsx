@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data)
 
-export default () => {
+const ExerciseListPage = () => {
     const { data, error, isLoading } = useSWR("http://localhost:3000/api/v1/exercises", fetcher)
     if (error) return <div>Error while loading</div>
     if (isLoading) return <div>Loading...</div>
@@ -14,7 +14,7 @@ export default () => {
             <p className="text-center font-semibold text-lg">
                 {x.name}
             </p>
-            <img src={x.image_url} className="rounded-lg"/>
+            <img src={x.image_url} className="rounded-lg" />
         </div>
     })
 
@@ -25,3 +25,4 @@ export default () => {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-4">{exerciseNodes}</div>
     </>
 }
+export { ExerciseListPage }

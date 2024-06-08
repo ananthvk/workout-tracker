@@ -1,5 +1,6 @@
-export default () => {
+const HomePage = () => {
     return <div>
         Home page
     </div>
 }
+export { HomePage }
