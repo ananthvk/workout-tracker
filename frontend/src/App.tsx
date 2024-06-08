@@ -1,12 +1,13 @@
-import ExerciseList from "./components/ExerciseList"
-
+import Navbar from "./components/Navbar"
+import AppRouter from "./AppRouter"
 function App() {
 
-  return (
-    <>
-        <ExerciseList/>
-    </>
-  )
+    return (
+        <>
+            <Navbar />
+            <AppRouter/>
+        </>
+    )
 }
 
 export default App
