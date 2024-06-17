@@ -1,11 +1,11 @@
 import { ReactNode } from "react";
 import useSWR from 'swr';
-import axios from 'axios';
+import axios from "../common/instance.js";
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data)
 
 const ExerciseListPage = () => {
-    const { data, error, isLoading } = useSWR("http://localhost:3000/api/v1/exercises", fetcher)
+    const { data, error, isLoading } = useSWR("exercises", fetcher)
     if (error) return <div>Error while loading</div>
     if (isLoading) return <div>Loading...</div>
     const exerciseNodes: ReactNode[] = data.map((x: any) => {
