@@ -2,6 +2,7 @@ import React from "react"
 import { useLocalStorage } from "usehooks-ts"
 const IsLoggedIn = ({ children }: { children: React.ReactNode }) => {
     const [loginToken, _] = useLocalStorage("token", "")
+    // authenticatedInstance.get('user')
     return <div>
         {loginToken ? children : <></>}
     </div>
