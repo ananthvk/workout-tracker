@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { ExerciseListPage } from "./pages/ExerciseListPage";
 import { LoginPage } from "./pages/LoginPage";
+import { SessionPage } from "./pages/SessionPage";
 import { HomePage } from "./pages/HomePage";
 import { LogoutPage } from "./pages/LogoutPage";
 import { SignupPage } from "./pages/SignupPage";
@@ -15,5 +16,6 @@ export default () => {
         <Route path="/logout" element={<IsLoggedIn><LogoutPage /></IsLoggedIn>} />
         <Route path="/signup" element={<IsNotLoggedIn><SignupPage /></IsNotLoggedIn>} />
         <Route path="/session" element={<IsLoggedIn><CreateWorkoutSessionPage /></IsLoggedIn>} />
+        <Route path="/session/:id" element={<IsLoggedIn><SessionPage /></IsLoggedIn>} />
     </Routes>
 }

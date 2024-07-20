@@ -158,7 +158,6 @@ const createExerciseSet = async (
   return rows[0];
 };
 
-/*
 const getWorkoutSessionsByUser = async (fastify: FastifyInstance, usr_id: string): Promise<WorkoutSession[]> => {
     const query = `SELECT id, date_performed, date_added, total_duration FROM WorkoutSession WHERE usr_id=$1;`;
     const { rows, rowCount } = await fastify.pg.query(query, [usr_id]);
@@ -167,12 +166,11 @@ const getWorkoutSessionsByUser = async (fastify: FastifyInstance, usr_id: string
     }
     return rows.map((x: any) => { return { ...x, date_performed: x.date_performed.toISOString().split('T')[0], date_added: x.date_added.toISOString() } })
 }
-*/
 
 export {
   getWorkoutSession,
   getSetsByWorkoutSessionId,
   createWorkoutSession,
   createExerciseSet,
-  //getWorkoutSessionsByUser
+  getWorkoutSessionsByUser
 };
