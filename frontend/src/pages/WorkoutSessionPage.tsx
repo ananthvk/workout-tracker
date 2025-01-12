@@ -1,4 +1,4 @@
-import { FormEvent, useEffect } from "react"
+import { FormEvent } from "react"
 import { authenticatedInstance } from "../common/instance";
 import useSWR from "swr";
 
